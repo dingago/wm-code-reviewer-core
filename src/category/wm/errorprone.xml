@@ -12,7 +12,17 @@ Rules to detect constructs that are either broken, extremely confusing or prone 
 		message="Package is empty"
 		class="hx.codeReviewer.lang.wm.rule.errorprone.EmptyPackageRule">
 		<description>
-			Package is empty.
+			Package can't be empty.
+		</description>
+		<priority>3</priority>
+	</rule>
+	
+	
+	<rule name="EmptyFolderRule" language="wm" since="6.17"
+		message="Folder {0} is empty"
+		class="hx.codeReviewer.lang.wm.rule.errorprone.EmptyFolderRule">
+		<description>
+			Folder can't be empty.
 		</description>
 		<priority>3</priority>
 	</rule>
