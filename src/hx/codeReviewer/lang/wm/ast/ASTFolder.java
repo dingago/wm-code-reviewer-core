@@ -3,15 +3,15 @@ package hx.codeReviewer.lang.wm.ast;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          This class represents node com.wm.lang.ns.NSInterface.
  *
  */
 public class ASTFolder extends AbstractNsNode {
 
-	public ASTFolder(String name, String nsName, String comment) {
-		super(name, nsName, comment);
+	public ASTFolder(ASTPackage _package, String name, String nsName, String comment) {
+		super(_package, name, nsName, comment);
 	}
 
 	@Override

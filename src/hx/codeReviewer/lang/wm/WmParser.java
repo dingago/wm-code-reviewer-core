@@ -26,7 +26,7 @@ import net.sourceforge.pmd.lang.ast.ParseException;
 
 /**
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  *
  *          This class would parse local file and convert to AST nodes.
  */
@@ -102,7 +102,7 @@ public class WmParser extends AbstractParser {
 			for (String subDirectoryName : nsDirectoryFile.list()) {
 				String subNsDirectory = Paths.get(nsDirectory)
 						.resolve(subDirectoryName).toString();
-				parseNodes(astPackage, subNsDirectory);
+				parseNodes(astPackage, astPackage, subNsDirectory);
 			}
 		}
 		return astPackage;
@@ -110,7 +110,8 @@ public class WmParser extends AbstractParser {
 
 	/**
 	 * @author Xiaowei Wang
-	 * @since 1.0
+	 * @since 1.1
+	 * @param _package The package node.
 	 * @param parentNode
 	 *            The parent node.
 	 * @param directory
@@ -119,7 +120,7 @@ public class WmParser extends AbstractParser {
 	 *            This method reads files under ns directory and add them to
 	 *            parent node.
 	 */
-	private void parseNodes(AbstractWmNode parentNode, String directory) {
+	private void parseNodes(ASTPackage _package, AbstractWmNode parentNode, String directory) {
 		File directoryFile = new File(directory);
 		if (directoryFile.isDirectory()) {
 			String ndfFileName = Paths.get(directory)
@@ -176,7 +177,8 @@ public class WmParser extends AbstractParser {
 					}
 				}
 
-				ASTFolder astFolder = new ASTFolder(name, nsName, null);
+				ASTFolder astFolder = new ASTFolder(_package, name, nsName, null);
+				_package.indexNode(nsName, astFolder);
 				parentNode.jjtAddChild(astFolder,
 						parentNode.jjtGetNumChildren());
 				astFolder.jjtSetParent(parentNode);
@@ -189,7 +191,7 @@ public class WmParser extends AbstractParser {
 						})) {
 					String subDirectory = Paths.get(directory)
 							.resolve(subDirectoryName).toString();
-					parseNodes(astFolder, subDirectory);
+					parseNodes(_package, astFolder, subDirectory);
 				}
 			}
 		} else {
