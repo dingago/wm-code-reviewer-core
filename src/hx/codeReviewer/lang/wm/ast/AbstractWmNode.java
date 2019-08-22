@@ -4,15 +4,11 @@ import net.sourceforge.pmd.lang.ast.AbstractNode;
 
 /**
  * @author Xiaowei Wang
- * @version 1.1
+ * @version 1.2
  *
  *          This abstract node of all webMethods assets.
  */
 public abstract class AbstractWmNode extends AbstractNode implements WmNode {
-	public final static String FOLDER_NODES = "ns";
-	public final static String FILE_V3 = "manifest.v3";
-	public final static String FILE_IDF = "node.idf";
-	public final static String FILE_NDF = "node.ndf";
 
 	ASTPackage _package;
 

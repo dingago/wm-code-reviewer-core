@@ -1,37 +1,33 @@
 package hx.codeReviewer.lang.wm.ast;
 
+import com.wm.lang.ns.NSNode;
+
 /**
  * @author Xiaowei Wang
- * @version 1.1
+ * @version 1.2
  * 
  *          The abstract AST node represents any webMethods node extends from
  *          class com.wm.lang.ns.NSNode.
  *
  */
 public abstract class AbstractNsNode extends AbstractWmNode {
-	public final static String KEY_NODE_NAME = "node_nsName";
 
-	String name;
-	String nsName;
-	String comment;
+	NSNode nsNode;
 
-	public AbstractNsNode(ASTPackage _package,String name, String nsName, String comment) {
+	public AbstractNsNode(ASTPackage _package, NSNode nsNode) {
 		super(_package);
-		this.name = name;
-		this.nsName = nsName;
-		this.comment = comment;
+		this.nsNode = nsNode;
 	}
 
 	public String getName() {
-		return name;
+		return nsNode.getNSName().getNodeName().toString();
 	}
 
 	public String getNsName() {
-		return nsName;
+		return nsNode.getNSName().getFullName();
 	}
 
 	public String getComment() {
-		return comment;
+		return nsNode.getComment();
 	}
-
 }

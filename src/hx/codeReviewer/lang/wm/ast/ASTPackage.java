@@ -1,23 +1,22 @@
 package hx.codeReviewer.lang.wm.ast;
 
-import java.util.Hashtable;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.wm.app.b2b.server.Manifest;
 
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.1
+ * @version 1.2
  * 
  *          This class represents node com.wm.lang.ns.NSPackage.
  *
  */
 public class ASTPackage extends AbstractWmNode {
-	public final static String KEY_NAME = "name";
 
 	private String name;
 	private Manifest manifest;
-	private Hashtable<String, AbstractWmNode> namespace = new Hashtable<String, AbstractWmNode>();
+	private ConcurrentHashMap<String, AbstractWmNode> nodes = new ConcurrentHashMap<String, AbstractWmNode>();
 
 	public ASTPackage(String name, Manifest manifest) {
 		super(null);
@@ -45,24 +44,24 @@ public class ASTPackage extends AbstractWmNode {
 
 	/**
 	 * @author Xiaowei Wang
-	 * @since 1.1
+	 * @since 1.2
 	 * @param nsName
 	 *            The nsName of indexed node.
 	 * @return Indexed node by given nsName.
 	 */
 	public AbstractWmNode getNode(String nsName) {
-		return namespace.get(nsName);
+		return nodes.get(nsName);
 	}
 
 	/**
 	 * @author Xiaowei Wang
-	 * @since 1.1
+	 * @since 1.2
 	 * @param nsName
 	 *            The nsName of indexed node.
 	 * @param node
 	 *            The node to be indexed.
 	 */
 	public void indexNode(String nsName, AbstractWmNode node) {
-		namespace.put(nsName, node);
+		nodes.put(nsName, node);
 	}
 }

@@ -1,17 +1,19 @@
 package hx.codeReviewer.lang.wm.ast;
 
+import com.wm.lang.ns.NSInterface;
+
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.1
+ * @version 1.2
  * 
  *          This class represents node com.wm.lang.ns.NSInterface.
  *
  */
 public class ASTFolder extends AbstractNsNode {
-
-	public ASTFolder(ASTPackage _package, String name, String nsName, String comment) {
-		super(_package, name, nsName, comment);
+	
+	public ASTFolder(ASTPackage _package, NSInterface nsInterface) {
+		super(_package, nsInterface);
 	}
 
 	@Override
@@ -27,11 +29,22 @@ public class ASTFolder extends AbstractNsNode {
 	/**
 	 * @author Xiaowei Wang
 	 * @since 1.0
-	 * @param nodeName
+	 * @param folderName
 	 *            The name of sub folder node.
 	 * @return The namespace name of sub folder node.
 	 */
-	public String getSubFolderNSName(String nodeName) {
-		return nsName + "." + nodeName;
+	public String getSubFolderNSName(String folderName) {
+		return nsNode.getNSName().toString() + "." + folderName;
+	}
+
+	/**
+	 * @author Xiaowei Wang
+	 * @since 1.1
+	 * @param nodeName
+	 *            The name of sub node.
+	 * @return The namespace name of sub node.
+	 */
+	public String getSubNodeNSName(String nodeName) {
+		return nsNode.getNSName().toString() + ":" + nodeName;
 	}
 }
