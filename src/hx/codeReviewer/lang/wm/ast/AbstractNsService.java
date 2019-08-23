@@ -11,9 +11,9 @@ import com.wm.lang.ns.NSService;
  *          from class com.wm.lang.ns.NSService.
  *
  */
-public abstract class AbstractNSService extends AbstractNsNode {
+public abstract class AbstractNsService extends AbstractNsNode {
 
-	public AbstractNSService(ASTPackage _package, NSService nsService) {
+	public AbstractNsService(ASTPackage _package, NSService nsService) {
 		super(_package, nsService);
 	}
 

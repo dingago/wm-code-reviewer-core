@@ -1,6 +1,7 @@
 package hx.codeReviewer.lang.wm.rule;
 
 import hx.codeReviewer.lang.wm.ast.ASTFolder;
+import hx.codeReviewer.lang.wm.ast.ASTJavaService;
 import hx.codeReviewer.lang.wm.ast.ASTPackage;
 import hx.codeReviewer.lang.wm.ast.ASTParsedUnit;
 import hx.codeReviewer.lang.wm.ast.WmNode;
@@ -15,7 +16,7 @@ import net.sourceforge.pmd.lang.rule.AbstractRule;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          The abstract class for all rules webMethods rules.
  *
@@ -58,6 +59,11 @@ public abstract class AbstractWmRule extends AbstractRule implements
 	public Object visit(ASTFolder node, Object data) {
 		return visit((WmNode) node, data);
 
+	}
+
+	@Override
+	public Object visit(ASTJavaService node, Object data) {
+		return visit((WmNode) node, data);
 	}
 
 }
