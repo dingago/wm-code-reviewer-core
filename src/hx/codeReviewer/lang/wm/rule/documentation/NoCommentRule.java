@@ -1,4 +1,4 @@
-package hx.codeReviewer.lang.wm.rule.bestpractices;
+package hx.codeReviewer.lang.wm.rule.documentation;
 
 import hx.codeReviewer.lang.wm.ast.ASTFlowService;
 import hx.codeReviewer.lang.wm.ast.ASTJavaService;

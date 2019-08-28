@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<ruleset name="Best Practices" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+	<description>
+		Rules that are related to code documentation.
+	</description>
+
+	<rule name="NoCommentRule" language="wm" since="6.17"
+		message="Ensure the node {0} has a comment" class="hx.codeReviewer.lang.wm.rule.documentation.NoCommentRule">
+		<description>
+			Makes sure there is always comment for a node.
+		</description>
+		<priority>3</priority>
+	</rule>
+</ruleset>

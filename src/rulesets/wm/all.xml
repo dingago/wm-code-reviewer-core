@@ -12,4 +12,5 @@ The All ruleset contains all rules.
     <rule ref="category/wm/codestyle.xml" />
     <rule ref="category/wm/errorprone.xml" />
     <rule ref="category/wm/performance.xml" />
+    <rule ref="category/wm/documentation.xml" />
 </ruleset>
