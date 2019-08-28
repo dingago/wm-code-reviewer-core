@@ -2,6 +2,7 @@ package hx.codeReviewer.lang.wm.ast;
 
 import com.wm.lang.ns.AuditSettings;
 import com.wm.lang.ns.NSService;
+import com.wm.lang.ns.NSSignature;
 
 /**
  * @author Xiaowei Wang
@@ -114,6 +115,10 @@ public abstract class AbstractNsService extends AbstractNsNode {
 							+ ((NSService) nsNode).getPipelineOption()
 							+ " in node " + getNsName());
 		}
+	}
+	
+	public NSSignature getSignature(){
+		return ((NSService)nsNode).getSig();
 	}
 
 	public enum AuditOption {
