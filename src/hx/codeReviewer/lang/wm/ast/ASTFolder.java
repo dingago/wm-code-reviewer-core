@@ -5,15 +5,19 @@ import com.wm.lang.ns.NSInterface;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.2
+ * @version 1.3
  * 
  *          This class represents node com.wm.lang.ns.NSInterface.
  *
  */
 public class ASTFolder extends AbstractNsNode {
 	
-	public ASTFolder(ASTPackage _package, NSInterface nsInterface) {
-		super(_package, nsInterface);
+	public ASTFolder(ASTPackage _package, ASTFolder parentNode, NSInterface nsInterface) {
+		super(_package, parentNode, nsInterface);
+	}
+
+	public ASTFolder(ASTPackage _package, ASTPackage parentNode, NSInterface nsInterface) {
+		super(_package, parentNode, nsInterface);
 	}
 
 	@Override

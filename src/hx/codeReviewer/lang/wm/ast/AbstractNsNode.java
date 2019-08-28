@@ -4,7 +4,7 @@ import com.wm.lang.ns.NSNode;
 
 /**
  * @author Xiaowei Wang
- * @version 1.2
+ * @version 1.3
  * 
  *          The abstract AST node represents any webMethods node extends from
  *          class com.wm.lang.ns.NSNode.
@@ -14,9 +14,17 @@ public abstract class AbstractNsNode extends AbstractWmNode {
 
 	NSNode nsNode;
 
-	public AbstractNsNode(ASTPackage _package, NSNode nsNode) {
+	public AbstractNsNode(ASTPackage _package, AbstractWmNode parentNode,
+			NSNode nsNode) {
 		super(_package);
 		this.nsNode = nsNode;
+
+		/**
+		 * Index node in package, and associate with parent node.
+		 */
+		_package.indexNode(this.getNsName(), this);
+		parentNode.jjtAddChild(this, parentNode.jjtGetNumChildren());
+		this.jjtSetParent(parentNode);
 	}
 
 	public String getName() {

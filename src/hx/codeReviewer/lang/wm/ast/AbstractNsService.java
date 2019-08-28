@@ -5,7 +5,7 @@ import com.wm.lang.ns.NSService;
 
 /**
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          The abstract service node represents any webMethods node extends
  *          from class com.wm.lang.ns.NSService.
@@ -13,8 +13,9 @@ import com.wm.lang.ns.NSService;
  */
 public abstract class AbstractNsService extends AbstractNsNode {
 
-	public AbstractNsService(ASTPackage _package, NSService nsService) {
-		super(_package, nsService);
+	public AbstractNsService(ASTPackage _package, ASTFolder parentNode,
+			NSService nsService) {
+		super(_package, parentNode, nsService);
 	}
 
 	public String getSpecNsName() {

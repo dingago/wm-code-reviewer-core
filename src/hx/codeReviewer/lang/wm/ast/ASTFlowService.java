@@ -1,24 +1,25 @@
 package hx.codeReviewer.lang.wm.ast;
 
-import com.wm.app.b2b.server.JavaService;
+import com.wm.app.b2b.server.FlowSvcImpl;
 
 /**
  * @author Xiaowei Wang
- * @version 1.2
+ * @version 1.0
  * 
  *          The abstract service node represents webMethods node class
- *          com.wm.app.b2b.server.JavaService.
+ *          com.wm.app.b2b.server.FlowSvcImpl.
  *
  */
-public class ASTJavaService extends AbstractBaseService {
+public class ASTFlowService extends AbstractBaseService {
 
-	public ASTJavaService(ASTPackage _package, ASTFolder parentNode, JavaService javaService) {
-		super(_package, parentNode, javaService);
+	public ASTFlowService(ASTPackage _package, ASTFolder parentNode,
+			FlowSvcImpl flowSvcImpl) {
+		super(_package, parentNode, flowSvcImpl);
 	}
 
 	@Override
 	public String getXPathNodeName() {
-		return "JavaService";
+		return "FlowService";
 	}
 
 	@Override

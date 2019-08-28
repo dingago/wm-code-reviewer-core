@@ -4,7 +4,7 @@ import com.wm.app.b2b.server.BaseService;
 
 /**
  * @author Xiaowei Wang
- * @version 1.1
+ * @version 1.2
  * 
  *          The abstract service node represents any webMethods node extends
  *          from class com.wm.app.b2b.server.BaseService.
@@ -12,8 +12,9 @@ import com.wm.app.b2b.server.BaseService;
  */
 public abstract class AbstractBaseService extends AbstractNsService {
 
-	public AbstractBaseService(ASTPackage _package, BaseService baseService) {
-		super(_package, baseService);
+	public AbstractBaseService(ASTPackage _package, ASTFolder parentNode,
+			BaseService baseService) {
+		super(_package, parentNode, baseService);
 	}
 
 	public boolean isStateless() {

@@ -1,5 +1,14 @@
 package hx.codeReviewer.lang.wm.rule;
 
+import hx.codeReviewer.lang.wm.ast.ASTFlowBranch;
+import hx.codeReviewer.lang.wm.ast.ASTFlowExit;
+import hx.codeReviewer.lang.wm.ast.ASTFlowInvoke;
+import hx.codeReviewer.lang.wm.ast.ASTFlowLoop;
+import hx.codeReviewer.lang.wm.ast.ASTFlowMap;
+import hx.codeReviewer.lang.wm.ast.ASTFlowRepeat;
+import hx.codeReviewer.lang.wm.ast.ASTFlowRoot;
+import hx.codeReviewer.lang.wm.ast.ASTFlowSequence;
+import hx.codeReviewer.lang.wm.ast.ASTFlowService;
 import hx.codeReviewer.lang.wm.ast.ASTFolder;
 import hx.codeReviewer.lang.wm.ast.ASTJavaService;
 import hx.codeReviewer.lang.wm.ast.ASTPackage;
@@ -16,7 +25,7 @@ import net.sourceforge.pmd.lang.rule.AbstractRule;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.1
+ * @version 1.2
  * 
  *          The abstract class for all rules webMethods rules.
  *
@@ -63,6 +72,51 @@ public abstract class AbstractWmRule extends AbstractRule implements
 
 	@Override
 	public Object visit(ASTJavaService node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowBranch node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowExit node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowInvoke node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowLoop node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowMap node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowRepeat node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowRoot node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowSequence node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowService node, Object data) {
 		return visit((WmNode) node, data);
 	}
 
