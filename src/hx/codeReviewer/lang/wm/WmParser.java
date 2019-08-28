@@ -14,7 +14,9 @@ import hx.codeReviewer.lang.wm.ast.ASTJavaService;
 import hx.codeReviewer.lang.wm.ast.ASTPackage;
 import hx.codeReviewer.lang.wm.ast.ASTParsedUnit;
 import hx.codeReviewer.lang.wm.ast.AbstractFlowElement;
+import hx.codeReviewer.lang.wm.ast.AbstractNsNode;
 import hx.codeReviewer.lang.wm.ast.AbstractFlowElement.FlowType;
+import hx.codeReviewer.lang.wm.ast.AbstractNsNode.NodeType;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -59,13 +61,6 @@ public class WmParser extends AbstractParser {
 	private final static String FILE_IDF = "node.idf";
 	private final static String FILE_NDF = "node.ndf";
 	private final static String FILE_FLOW = "flow.xml";
-	private final static String KEY_NAME = "name";
-	private final static String KEY_NODE_NAME = "node_nsName";
-	private final static String KEY_NODE_TYPE = "node_type";
-	private final static String KEY_SVC_TYPE = "svc_type";
-	private final static String KEY_SVC_SUBTYPE = "svc_subtype";
-	private final static String TYPE_JAVA = "java";
-	private final static String TYPE_FLOW = "flow";
 
 	public WmParser(ParserOptions parserOptions) {
 		super(parserOptions);
@@ -122,7 +117,7 @@ public class WmParser extends AbstractParser {
 			throw new ParseException(e);
 		}
 		Manifest manifest = new Manifest(manifestValues);
-		String packageName = manifestValues.getString(KEY_NAME);
+		String packageName = manifestValues.getString("name");
 		if (packageName == null || packageName.isEmpty()) {
 			packageName = new File(manifestFileName).getParentFile().getName();
 		}
@@ -170,50 +165,48 @@ public class WmParser extends AbstractParser {
 					XMLCoder coder = new XMLCoder(true);
 					try {
 						Values ndfValues = coder.readFromFile(ndfFile);
-						String nodeType = ndfValues.getString(KEY_NODE_TYPE);
-						String serviceType = ndfValues.getString(KEY_SVC_TYPE);
-						if (serviceType != null && !serviceType.isEmpty()) {
-							switch (serviceType) {
-							case TYPE_JAVA:
-								JavaService javaService = JavaService.create(
-										null, NSName.create(nsName), ndfValues);
-								ASTJavaService astJavaService = new ASTJavaService(
-										_package, parentNode, javaService);
-								break;
-							case TYPE_FLOW:
-								FlowSvcImpl flowSvcImpl = new FlowSvcImpl(null,
-										NSName.create(nsName), ndfValues);
-								File flowFile = Paths.get(ndfFileName)
-										.resolveSibling(FILE_FLOW).toFile();
-								if (flowFile.isFile()) {
-									Values flowValues;
-									try {
-										flowValues = flowSvcImpl
-												.loadFlow(flowFile);
-									} catch (Exception e) {
-										e.printStackTrace();
-										throw new ParseException(e);
-									}
-									ASTFlowService astFlowService = new ASTFlowService(
-											_package, parentNode, flowSvcImpl);
-									FlowRoot flowRoot = new FlowRoot(flowValues);
-									ASTFlowRoot astFlowRoot = new ASTFlowRoot(
-											_package, astFlowService, flowRoot);
-									parseFlowElements(astFlowRoot, astFlowRoot);
-									break;
-								} else {
-									throw new ParseException(
-											"Not found valid file "
-													+ flowFile
-															.getAbsolutePath());
+						NodeType nodeType = AbstractNsNode
+								.getNodeType(ndfValues);
+						switch (nodeType) {
+						case JAVA_SERVICE:
+							JavaService javaService = JavaService.create(null,
+									NSName.create(nsName), ndfValues);
+							new ASTJavaService(_package, parentNode,
+									javaService);
+							break;
+						case FLOW_SERVICE:
+							FlowSvcImpl flowSvcImpl = new FlowSvcImpl(null,
+									NSName.create(nsName), ndfValues);
+							File flowFile = Paths.get(ndfFileName)
+									.resolveSibling(FILE_FLOW).toFile();
+							if (flowFile.isFile()) {
+								Values flowValues;
+								try {
+									flowValues = flowSvcImpl.loadFlow(flowFile);
+								} catch (Exception e) {
+									e.printStackTrace();
+									throw new ParseException(e);
 								}
-							default:
-								System.err
-										.println("Found unrecoginized service type "
-												+ serviceType);
+								ASTFlowService astFlowService = new ASTFlowService(
+										_package, parentNode, flowSvcImpl);
+								FlowRoot flowRoot = new FlowRoot(flowValues);
+								ASTFlowRoot astFlowRoot = new ASTFlowRoot(
+										_package, astFlowService, flowRoot);
+								parseFlowElements(astFlowRoot, astFlowRoot);
+							} else {
+								throw new ParseException("Failed to read "
+										+ flowFile.getAbsolutePath());
 							}
-						} else {
-
+							break;
+						case UNKNOWN:
+						case NONE:
+							throw new ParseException("Found unrecognized node "
+									+ ndfFile.getAbsolutePath());
+						default:
+							System.out.println("Do not support to parse node "
+									+ ndfFile.getAbsolutePath()
+									+ ", which type is " + nodeType.toString());
+							break;
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -236,7 +229,7 @@ public class WmParser extends AbstractParser {
 					try {
 						Values idfValues = coder.readFromFile(new File(
 								idfFileName));
-						nsName = idfValues.getString(KEY_NODE_NAME);
+						nsName = AbstractNsNode.getNsName(idfValues);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

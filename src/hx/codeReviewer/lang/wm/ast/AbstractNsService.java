@@ -5,7 +5,7 @@ import com.wm.lang.ns.NSService;
 
 /**
  * @author Xiaowei Wang
- * @version 1.1
+ * @version 1.2
  * 
  *          The abstract service node represents any webMethods node extends
  *          from class com.wm.lang.ns.NSService.
@@ -45,7 +45,8 @@ public abstract class AbstractNsService extends AbstractNsNode {
 			return AuditOption.TOP_LEVEL_ONLY;
 		default:
 			throw new RuntimeException("Found unrecognized audit option "
-					+ ((NSService) nsNode).getAuditOption());
+					+ ((NSService) nsNode).getAuditOption() + " in node "
+					+ getNsName());
 		}
 	}
 
@@ -74,7 +75,8 @@ public abstract class AbstractNsService extends AbstractNsNode {
 			return AuditLogOnOption.ERROR;
 		}
 		throw new RuntimeException("Found unrecognized audit log on option "
-				+ ((NSService) nsNode).getAuditOption());
+				+ ((NSService) nsNode).getAuditOption() + " in node "
+				+ getNsName());
 	}
 
 	public AuditPipelineOption getAuditPipeline() {
@@ -90,12 +92,14 @@ public abstract class AbstractNsService extends AbstractNsNode {
 			throw new RuntimeException(
 					"Found unrecognized audit pipeline option "
 							+ ((NSService) nsNode).getAuditSettings()
-									.isDocumentAuditEnabled());
+									.isDocumentAuditEnabled() + " in node "
+							+ getNsName());
 		}
 	}
 
 	public PipelineDebugOption getPipelineDebug() {
 		switch (((NSService) nsNode).getPipelineOption()) {
+		case 0:
 		case NSService.NO_PIPELINE:
 			return PipelineDebugOption.NONE;
 		case NSService.SAVE_PIPELINE:
@@ -107,7 +111,8 @@ public abstract class AbstractNsService extends AbstractNsNode {
 		default:
 			throw new RuntimeException(
 					"Found unrecognized pipeline debug option "
-							+ ((NSService) nsNode).getPipelineOption());
+							+ ((NSService) nsNode).getPipelineOption()
+							+ " in node " + getNsName());
 		}
 	}
 
