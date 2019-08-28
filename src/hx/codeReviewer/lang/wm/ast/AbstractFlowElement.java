@@ -4,7 +4,7 @@ import com.wm.lang.flow.FlowElement;
 
 /**
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          The abstract AST node represents any webMethods node extends from
  *          class com.wm.lang.flow.FlowElement.
@@ -89,6 +89,15 @@ public abstract class AbstractFlowElement extends AbstractWmNode {
 
 	public String getNsName() {
 		return ((ASTFlowService) root.jjtGetParent()).getNsName();
+	}
+
+	/**
+	 * @author Xiaowei Wang
+	 * @since 1.1
+	 * @return Whether this flow element is enable.
+	 */
+	public boolean isEnabled() {
+		return flowElement.isEnabled();
 	}
 
 	public enum FlowType {

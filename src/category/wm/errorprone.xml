@@ -5,7 +5,8 @@
 	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 
 	<description>
-		Rules to detect constructs that are either broken, extremely confusing or
+		Rules to detect constructs that are either broken,
+		extremely confusing or
 		prone to runtime errors.
 	</description>
 
@@ -57,6 +58,15 @@
 		<description>
 			Service debug pipeline property should not be set to
 			restore.
+		</description>
+		<priority>3</priority>
+	</rule>
+
+	<rule name="DisabledFlowElementRule" language="wm" since="6.17"
+		message="Flow service {0} has disabled flow step at {1}"
+		class="hx.codeReviewer.lang.wm.rule.errorprone.DisabledFlowElementRule">
+		<description>
+			Makes sure there is no disabled code in flow service.
 		</description>
 		<priority>3</priority>
 	</rule>
