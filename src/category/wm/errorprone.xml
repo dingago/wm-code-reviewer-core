@@ -4,51 +4,59 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 
-    <description>
-Rules to detect constructs that are either broken, extremely confusing or prone to runtime errors.
-    </description>
+	<description>
+		Rules to detect constructs that are either broken, extremely confusing or
+		prone to runtime errors.
+	</description>
 
 	<rule name="EmptyPackageRule" language="wm" since="6.17"
-		message="Package is empty"
-		class="hx.codeReviewer.lang.wm.rule.errorprone.EmptyPackageRule">
+		message="Package is empty" class="hx.codeReviewer.lang.wm.rule.errorprone.EmptyPackageRule">
 		<description>
 			Package can't be empty.
 		</description>
 		<priority>3</priority>
 	</rule>
-	
+
 	<rule name="EmptyFolderRule" language="wm" since="6.17"
-		message="Folder {0} is empty"
-		class="hx.codeReviewer.lang.wm.rule.errorprone.EmptyFolderRule">
+		message="Folder {0} is empty" class="hx.codeReviewer.lang.wm.rule.errorprone.EmptyFolderRule">
 		<description>
 			Folder can't be empty.
 		</description>
 		<priority>3</priority>
 	</rule>
-	
+
 	<rule name="EmptyFlowServiceRule" language="wm" since="6.17"
-		message="Flow service {0} is empty"
-		class="hx.codeReviewer.lang.wm.rule.errorprone.EmptyFlowServiceRule">
+		message="Flow service {0} is empty" class="hx.codeReviewer.lang.wm.rule.errorprone.EmptyFlowServiceRule">
 		<description>
 			Flow service can't be empty.
 		</description>
 		<priority>3</priority>
 	</rule>
-	
+
 	<rule name="EmptyFlowBranchRule" language="wm" since="6.17"
-		message="Flow service {0} has empty branch at {1}"
-		class="hx.codeReviewer.lang.wm.rule.errorprone.EmptyFlowBranchRule">
+		message="Flow service {0} has empty branch at {1}" class="hx.codeReviewer.lang.wm.rule.errorprone.EmptyFlowBranchRule">
 		<description>
 			There should be always child elements under Flow Branch.
 		</description>
 		<priority>3</priority>
 	</rule>
-	
+
 	<rule name="DuplicateFlowBranchesRule" language="wm" since="6.17"
 		message="Flow service {0} has duplicate label '{1}' under Flow Branch at {2}"
 		class="hx.codeReviewer.lang.wm.rule.errorprone.DuplicateFlowBranchesRule">
 		<description>
-			All child elements under Flow Branch should has different label value.
+			All child elements under Flow Branch should has different
+			label value.
+		</description>
+		<priority>3</priority>
+	</rule>
+
+	<rule name="RestoreDebugPipelineRule" language="wm" since="6.17"
+		message="Service {0} has debug pipeline property set to restore"
+		class="hx.codeReviewer.lang.wm.rule.errorprone.RestoreDebugPipelineRule">
+		<description>
+			Service debug pipeline property should not be set to
+			restore.
 		</description>
 		<priority>3</priority>
 	</rule>

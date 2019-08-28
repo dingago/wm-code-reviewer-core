@@ -94,6 +94,23 @@ public abstract class AbstractNsService extends AbstractNsNode {
 		}
 	}
 
+	public PipelineDebugOption getPipelineDebug() {
+		switch (((NSService) nsNode).getPipelineOption()) {
+		case NSService.NO_PIPELINE:
+			return PipelineDebugOption.NONE;
+		case NSService.SAVE_PIPELINE:
+			return PipelineDebugOption.SAVE;
+		case NSService.RESTORE_PIPELINE_MERGE:
+			return PipelineDebugOption.RESTORE_MERGE;
+		case NSService.RESTORE_PIPELINE_NO_MERGE:
+			return PipelineDebugOption.RESTORE_OVERRIDE;
+		default:
+			throw new RuntimeException(
+					"Found unrecognized pipeline debug option "
+							+ ((NSService) nsNode).getPipelineOption());
+		}
+	}
+
 	public enum AuditOption {
 		NEVER, TOP_LEVEL_ONLY, ALWAYS
 	}

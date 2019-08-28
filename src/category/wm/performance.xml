@@ -12,7 +12,18 @@
 		message="Inputs/outputs validation is enabled in service {0}"
 		class="hx.codeReviewer.lang.wm.rule.performance.ServiceValidationRule">
 		<description>
-			Ensure that service inputs/outputs validation is disabled for better performance.
+			Ensure that service inputs/outputs validation is disabled
+			for better performance.
+		</description>
+		<priority>3</priority>
+	</rule>
+
+	<rule name="SaveDebugPipelineRule" language="wm" since="6.17"
+		message="Debug pipeline is set to save in service {0}"
+		class="hx.codeReviewer.lang.wm.rule.performance.SaveDebugPipelineRule">
+		<description>
+			Ensure that service debug pipeline is not set to save for
+			better performance.
 		</description>
 		<priority>3</priority>
 	</rule>
