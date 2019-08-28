@@ -70,4 +70,22 @@
 		</description>
 		<priority>3</priority>
 	</rule>
+	
+	<rule name="StartupServicesRule" language="wm" since="6.17"
+		message="Startup service {0} doesn't exist"
+		class="hx.codeReviewer.lang.wm.rule.errorprone.StartupServicesRule">
+		<description>
+			Makes sure the startup services exist.
+		</description>
+		<priority>3</priority>
+	</rule>
+
+	<rule name="ShutdownServicesRule" language="wm" since="6.17"
+		message="Shutdown service {0} doesn't exist"
+		class="hx.codeReviewer.lang.wm.rule.errorprone.ShutdownServicesRule">
+		<description>
+			Makes sure the shutdown services exist.
+		</description>
+		<priority>3</priority>
+	</rule>
 </ruleset>
