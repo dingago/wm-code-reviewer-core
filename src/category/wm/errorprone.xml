@@ -88,4 +88,12 @@
 		</description>
 		<priority>3</priority>
 	</rule>
+	
+	<rule name="ReplicationServicesRule" language="wm" since="6.17"
+		message="Replication service {0} doesn't exist" class="hx.codeReviewer.lang.wm.rule.errorprone.ReplicationServicesRule">
+		<description>
+			Makes sure the replication services exist.
+		</description>
+		<priority>3</priority>
+	</rule>
 </ruleset>

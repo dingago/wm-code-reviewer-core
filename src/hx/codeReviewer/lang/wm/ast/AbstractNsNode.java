@@ -5,7 +5,7 @@ import com.wm.util.Values;
 
 /**
  * @author Xiaowei Wang
- * @version 1.4
+ * @version 1.5
  * 
  *          The abstract AST node represents any webMethods node extends from
  *          class com.wm.lang.ns.NSNode.
@@ -48,6 +48,15 @@ public abstract class AbstractNsNode extends AbstractWmNode {
 		NONE, UNKNOWN, DOCUMENT_TYPE, DOT_NET_SERVICE, JAVA_SERVICE, FLOW_SERVICE, CLOUD_SERVICE, XSLT_SERVICE, ODATA_SERVICE, C_SERVICE, ADAPTER_SERVICE, ADAPTER_CONNECTION, ADAPTER_LISTENER, ADAPTER_NOTIFICATION, MESSAGING_TRIGGER, JMS_TRIGGER, FF_SCHEMA, FF_DIRECTORY, SCHEMA, WSD_CONSUMER, WSD_PROVIDER, SPEC
 	}
 
+	/**
+	 * @author Xiaowei Wang
+	 * @since 1.4
+	 * @param nodeValues
+	 *            The Values of node definition.
+	 * @return The namespace name of node.
+	 * 
+	 *         This method retrieves NsName from node definition.
+	 */
 	public static String getNsName(Values nodeValues) {
 		String nodeType = nodeValues.getString("node_type");
 		if (nodeType == null) {
@@ -62,6 +71,37 @@ public abstract class AbstractNsNode extends AbstractWmNode {
 		return null;
 	}
 
+	/**
+	 * @author Xiaowei Wang
+	 * @since 1.5
+	 * @param nodeType
+	 *            The node type to check.
+	 * @return Whether it's kind of service node.
+	 * 
+	 *         This method helps to check if a given node type is kind of
+	 *         service node.
+	 */
+	public static boolean isServiceNode(NodeType nodeType) {
+		if (nodeType == NodeType.JAVA_SERVICE
+				|| nodeType == NodeType.FLOW_SERVICE
+				|| nodeType == NodeType.ADAPTER_SERVICE
+				|| nodeType == NodeType.DOT_NET_SERVICE
+				|| nodeType == NodeType.CLOUD_SERVICE
+				|| nodeType == NodeType.C_SERVICE) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @author Xiaowei Wang
+	 * @since 1.4
+	 * @param nodeValues
+	 *            The Values of node definition.
+	 * @return The node type retrieved from node definition.
+	 * 
+	 *         This method retrieves node type from node definition.
+	 */
 	public static NodeType getNodeType(Values nodeValues) {
 		if (nodeValues == null) {
 			return NodeType.NONE;
