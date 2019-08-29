@@ -14,7 +14,7 @@ import hx.codeReviewer.util.RuntimeUtil;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          Makes sure the replication services exist.
  */
@@ -27,7 +27,7 @@ public class ReplicationServicesRule extends AbstractWmRule {
 			String serviceName = iter.next();
 			AbstractWmNode serviceNode = node.getNode(serviceName);
 			if (serviceNode == null || !(serviceNode instanceof AbstractNsService)){
-				if (!AbstractNsNode.isServiceNode(RuntimeUtil.checkNodeExistence(serviceName))){
+				if (!AbstractNsNode.isServiceNode(RuntimeUtil.checkNodeExistence(serviceName, null))){
 					addViolation(data, node, serviceName);
 				}
 			}

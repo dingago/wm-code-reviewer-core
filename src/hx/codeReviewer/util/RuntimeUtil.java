@@ -10,7 +10,7 @@ import hx.codeReviewer.lang.wm.ast.AbstractNsNode.NodeType;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.1
+ * @version 1.2
  * 
  *          This class helps to retrieve dynamic information on runtime.
  *
@@ -21,17 +21,25 @@ public class RuntimeUtil {
 	 * @since 1.0
 	 * @param nodeName
 	 *            The name of node to check.
+	 * @param ignoredPackageName
+	 *            The name of package to ignore the existence if node belongs to
+	 *            it.
 	 * @return The type of node.
 	 * 
 	 *         This method checks if a specific node exists, if so returns the
 	 *         type of node, otherwise returns NodeType.NONE.
 	 */
-	public static NodeType checkNodeExistence(String nodeName) {
+	public static NodeType checkNodeExistence(String nodeName,
+			String ignoredPackageName) {
 		NSNode nsNode = Namespace.current().getNode(nodeName);
 		if (nsNode == null) {
 			return NodeType.NONE;
 		} else {
-			return AbstractNsNode.getNodeType(nsNode.getValues());
+			if (nsNode.getPackage().getName().equals(ignoredPackageName)) {
+				return NodeType.NONE;
+			} else {
+				return AbstractNsNode.getNodeType(nsNode.getValues());
+			}
 		}
 	}
 
