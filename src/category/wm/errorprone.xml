@@ -70,10 +70,9 @@
 		</description>
 		<priority>3</priority>
 	</rule>
-	
+
 	<rule name="StartupServicesRule" language="wm" since="6.17"
-		message="Startup service {0} doesn't exist"
-		class="hx.codeReviewer.lang.wm.rule.errorprone.StartupServicesRule">
+		message="Startup service {0} doesn't exist" class="hx.codeReviewer.lang.wm.rule.errorprone.StartupServicesRule">
 		<description>
 			Makes sure the startup services exist.
 		</description>
@@ -81,16 +80,25 @@
 	</rule>
 
 	<rule name="ShutdownServicesRule" language="wm" since="6.17"
-		message="Shutdown service {0} doesn't exist"
-		class="hx.codeReviewer.lang.wm.rule.errorprone.ShutdownServicesRule">
+		message="Shutdown service {0} doesn't exist" class="hx.codeReviewer.lang.wm.rule.errorprone.ShutdownServicesRule">
 		<description>
 			Makes sure the shutdown services exist.
 		</description>
 		<priority>3</priority>
 	</rule>
-	
+
 	<rule name="ReplicationServicesRule" language="wm" since="6.17"
-		message="Replication service {0} doesn't exist" class="hx.codeReviewer.lang.wm.rule.errorprone.ReplicationServicesRule">
+		message="Replication service {0} doesn't exist"
+		class="hx.codeReviewer.lang.wm.rule.errorprone.ReplicationServicesRule">
+		<description>
+			Makes sure the replication services exist.
+		</description>
+		<priority>3</priority>
+	</rule>
+
+	<rule name="RequiredPackagesRule" language="wm" since="6.17"
+		message="Required package {0} doesn't exist or doesn't match required version"
+		class="hx.codeReviewer.lang.wm.rule.errorprone.RequiredPackagesRule">
 		<description>
 			Makes sure the replication services exist.
 		</description>
