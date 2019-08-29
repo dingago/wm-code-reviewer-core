@@ -51,7 +51,7 @@ import net.sourceforge.pmd.lang.ast.ParseException;
 
 /**
  * @author Xiaowei Wang
- * @version 1.2
+ * @version 1.3
  *
  *          This class would parse local file and convert to AST nodes.
  */
@@ -61,6 +61,10 @@ public class WmParser extends AbstractParser {
 	private final static String FILE_IDF = "node.idf";
 	private final static String FILE_NDF = "node.ndf";
 	private final static String FILE_FLOW = "flow.xml";
+	/**
+	 * Added since v1.3.
+	 */
+	private final static String FILE_RELEASE = "manifest.rel";
 
 	public WmParser(ParserOptions parserOptions) {
 		super(parserOptions);
@@ -110,18 +114,30 @@ public class WmParser extends AbstractParser {
 		 */
 		XMLCoder coder = new XMLCoder(true);
 		Values manifestValues;
+		Values releaseValues = null;
 		try {
 			manifestValues = coder.readFromFile(new File(manifestFileName));
+			File releaseFile = Paths.get(manifestFileName)
+					.resolveSibling(FILE_RELEASE).toFile();
+			if (releaseFile.isFile()){
+				releaseValues = coder.readFromFile(releaseFile);
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new ParseException(e);
 		}
 		Manifest manifest = new Manifest(manifestValues);
 		String packageName = manifestValues.getString("name");
+		if ((packageName == null || packageName.isEmpty())
+				&& releaseValues != null) {
+			packageName = releaseValues.getString("name");
+		}
 		if (packageName == null || packageName.isEmpty()) {
 			packageName = new File(manifestFileName).getParentFile().getName();
 		}
-		ASTPackage astPackage = new ASTPackage(packageName, manifest);
+		ASTPackage astPackage = new ASTPackage(packageName, manifest,
+				releaseValues);
 		/**
 		 * Read nodes under ns folder.
 		 */
