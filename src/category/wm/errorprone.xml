@@ -100,7 +100,7 @@
 		message="Required package {0} doesn't exist or doesn't match required version"
 		class="hx.codeReviewer.lang.wm.rule.errorprone.RequiredPackagesRule">
 		<description>
-			Makes sure the replication services exist.
+			Makes sure the required packages exists and match required version.
 		</description>
 		<priority>3</priority>
 	</rule>
