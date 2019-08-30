@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<ruleset name="All" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+	<description>
+		The All ruleset contains all rules without runtime support.
+	</description>
+
+	<rule ref="category/wm/bestpractices.xml" />
+	<rule ref="category/wm/codestyle.xml" />
+	<rule ref="category/wm/errorprone.xml/EmptyPackageRule" />
+	<rule ref="category/wm/errorprone.xml/EmptyFolderRule" />
+	<rule ref="category/wm/errorprone.xml/EmptyFlowServiceRule" />
+	<rule ref="category/wm/errorprone.xml/EmptyFlowBranchRule" />
+	<rule ref="category/wm/errorprone.xml/DuplicateFlowBranchesRule" />
+	<rule ref="category/wm/errorprone.xml/RestoreDebugPipelineRule" />
+	<rule ref="category/wm/errorprone.xml/DisabledFlowElementRule" />
+	<rule ref="category/wm/errorprone.xml/StartupServicesRule" />
+	<rule ref="category/wm/errorprone.xml/ShutdownServicesRule" />
+	<rule ref="category/wm/errorprone.xml/NoExitFromRule" />
+	<rule ref="category/wm/errorprone.xml/InvalidExitFromRule" />
+	<rule ref="category/wm/performance.xml" />
+	<rule ref="category/wm/documentation.xml" />
+</ruleset>

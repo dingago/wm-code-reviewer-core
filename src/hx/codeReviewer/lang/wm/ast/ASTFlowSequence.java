@@ -5,7 +5,7 @@ import com.wm.lang.flow.FlowSequence;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          This class represents flow element com.wm.lang.flow.FlowSequence.
  *
@@ -15,6 +15,7 @@ public class ASTFlowSequence extends AbstractFlowElement {
 	public ASTFlowSequence(ASTPackage _package, ASTFlowRoot root,
 			AbstractFlowElement parentNode, FlowSequence flowSequence) {
 		super(_package, root, parentNode, flowSequence);
+		root.addLabel(this.getLabel());
 	}
 
 	@Override

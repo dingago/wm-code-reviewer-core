@@ -5,7 +5,7 @@ import com.wm.lang.flow.FlowBranch;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          This class represents flow element com.wm.lang.flow.FlowBranch.
  *
@@ -15,6 +15,7 @@ public class ASTFlowBranch extends AbstractFlowElement {
 	public ASTFlowBranch(ASTPackage _package, ASTFlowRoot root,AbstractFlowElement parentNode, 
 			FlowBranch flowBranch) {
 		super(_package, root, parentNode, flowBranch);
+		root.addLabel(this.getLabel());
 	}
 
 	@Override

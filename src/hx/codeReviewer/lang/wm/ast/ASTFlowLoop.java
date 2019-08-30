@@ -5,7 +5,7 @@ import com.wm.lang.flow.FlowLoop;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          This class represents flow element com.wm.lang.flow.FlowLoop.
  *
@@ -15,6 +15,7 @@ public class ASTFlowLoop extends AbstractFlowElement {
 	public ASTFlowLoop(ASTPackage _package, ASTFlowRoot root,
 			AbstractFlowElement parentNode, FlowLoop flowLoop) {
 		super(_package, root, parentNode, flowLoop);
+		root.addLabel(this.getLabel());
 	}
 
 	@Override
