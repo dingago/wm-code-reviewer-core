@@ -22,6 +22,7 @@
 	<rule ref="category/wm/errorprone.xml/InvalidExitFromRule" />
 	<rule ref="category/wm/errorprone.xml/FLowLoopWithoutInArrayRule" />
 	<rule ref="category/wm/errorprone.xml/InvalidFlowBranchRule" />
+	<rule ref="category/wm/errorprone.xml/NoFailureMessageRule" />
 	<rule ref="category/wm/performance.xml" />
 	<rule ref="category/wm/documentation.xml" />
 </ruleset>
