@@ -3,7 +3,7 @@ package hx.codeReviewer.lang.wm.ast;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.2
+ * @version 1.3
  * 
  *          This class implements WmParserVisitor.
  *
@@ -77,6 +77,31 @@ public class WmParserVisitorAdapter implements WmParserVisitor {
 
 	@Override
 	public Object visit(ASTFlowService node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowLink node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowSet node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowDrop node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowTransformer node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTDocumentType node, Object data) {
 		return visit((WmNode) node, data);
 	}
 

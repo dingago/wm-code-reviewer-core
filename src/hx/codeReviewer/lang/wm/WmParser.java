@@ -1,14 +1,19 @@
 package hx.codeReviewer.lang.wm;
 
+import hx.codeReviewer.lang.wm.ast.ASTDocumentType;
 import hx.codeReviewer.lang.wm.ast.ASTFlowBranch;
+import hx.codeReviewer.lang.wm.ast.ASTFlowDrop;
 import hx.codeReviewer.lang.wm.ast.ASTFlowExit;
 import hx.codeReviewer.lang.wm.ast.ASTFlowInvoke;
+import hx.codeReviewer.lang.wm.ast.ASTFlowLink;
 import hx.codeReviewer.lang.wm.ast.ASTFlowLoop;
 import hx.codeReviewer.lang.wm.ast.ASTFlowMap;
 import hx.codeReviewer.lang.wm.ast.ASTFlowRepeat;
 import hx.codeReviewer.lang.wm.ast.ASTFlowRoot;
 import hx.codeReviewer.lang.wm.ast.ASTFlowSequence;
 import hx.codeReviewer.lang.wm.ast.ASTFlowService;
+import hx.codeReviewer.lang.wm.ast.ASTFlowSet;
+import hx.codeReviewer.lang.wm.ast.ASTFlowTransformer;
 import hx.codeReviewer.lang.wm.ast.ASTFolder;
 import hx.codeReviewer.lang.wm.ast.ASTJavaService;
 import hx.codeReviewer.lang.wm.ast.ASTPackage;
@@ -36,10 +41,15 @@ import com.wm.lang.flow.FlowExit;
 import com.wm.lang.flow.FlowInvoke;
 import com.wm.lang.flow.FlowLoop;
 import com.wm.lang.flow.FlowMap;
+import com.wm.lang.flow.FlowMapCopy;
+import com.wm.lang.flow.FlowMapDelete;
+import com.wm.lang.flow.FlowMapInvoke;
+import com.wm.lang.flow.FlowMapSet;
 import com.wm.lang.flow.FlowRetry;
 import com.wm.lang.flow.FlowRoot;
 import com.wm.lang.flow.FlowSequence;
 import com.wm.lang.ns.NSName;
+import com.wm.lang.ns.NSRecord;
 import com.wm.util.Values;
 import com.wm.util.coder.XMLCoder;
 
@@ -51,20 +61,11 @@ import net.sourceforge.pmd.lang.ast.ParseException;
 
 /**
  * @author Xiaowei Wang
- * @version 1.3
+ * @version 1.4
  *
  *          This class would parse local file and convert to AST nodes.
  */
 public class WmParser extends AbstractParser {
-	private final static String FOLDER_NODES = "ns";
-	private final static String FILE_V3 = "manifest.v3";
-	private final static String FILE_IDF = "node.idf";
-	private final static String FILE_NDF = "node.ndf";
-	private final static String FILE_FLOW = "flow.xml";
-	/**
-	 * Added since v1.3.
-	 */
-	private final static String FILE_RELEASE = "manifest.rel";
 
 	public WmParser(ParserOptions parserOptions) {
 		super(parserOptions);
@@ -83,7 +84,7 @@ public class WmParser extends AbstractParser {
 	@Override
 	public Node parse(String fileName, Reader source) throws ParseException {
 		File file = new File(fileName);
-		if (file.getName().equals(FILE_V3)) {
+		if (file.getName().equals("manifest.v3")) {
 			ASTParsedUnit astParsedUnit = new ASTParsedUnit();
 			ASTPackage astPackage = parsePackage(fileName);
 			astParsedUnit.jjtAddChild(astPackage, 0);
@@ -118,8 +119,8 @@ public class WmParser extends AbstractParser {
 		try {
 			manifestValues = coder.readFromFile(new File(manifestFileName));
 			File releaseFile = Paths.get(manifestFileName)
-					.resolveSibling(FILE_RELEASE).toFile();
-			if (releaseFile.isFile()){
+					.resolveSibling("manifest.rel").toFile();
+			if (releaseFile.isFile()) {
 				releaseValues = coder.readFromFile(releaseFile);
 			}
 
@@ -141,8 +142,8 @@ public class WmParser extends AbstractParser {
 		/**
 		 * Read nodes under ns folder.
 		 */
-		String nsDirectory = Paths.get(manifestFileName)
-				.resolveSibling(FOLDER_NODES).toString();
+		String nsDirectory = Paths.get(manifestFileName).resolveSibling("ns")
+				.toString();
 		File nsDirectoryFile = new File(nsDirectory);
 		if (nsDirectoryFile.isDirectory()) {
 			for (String subDirectoryName : nsDirectoryFile.list()) {
@@ -171,7 +172,7 @@ public class WmParser extends AbstractParser {
 			String directory) {
 		File directoryFile = new File(directory);
 		if (directoryFile.isDirectory()) {
-			String ndfFileName = Paths.get(directory).resolve(FILE_NDF)
+			String ndfFileName = Paths.get(directory).resolve("node.ndf")
 					.toString();
 			File ndfFile = new File(ndfFileName);
 			if (ndfFile.exists()) {
@@ -194,7 +195,7 @@ public class WmParser extends AbstractParser {
 							FlowSvcImpl flowSvcImpl = new FlowSvcImpl(null,
 									NSName.create(nsName), ndfValues);
 							File flowFile = Paths.get(ndfFileName)
-									.resolveSibling(FILE_FLOW).toFile();
+									.resolveSibling("flow.xml").toFile();
 							if (flowFile.isFile()) {
 								Values flowValues;
 								try {
@@ -213,6 +214,11 @@ public class WmParser extends AbstractParser {
 								throw new ParseException("Failed to read "
 										+ flowFile.getAbsolutePath());
 							}
+							break;
+						case DOCUMENT_TYPE:
+							NSRecord nsRecord = NSRecord.createRecord(null,
+									ndfValues.getValues("record"));
+							new ASTDocumentType(_package, parentNode, nsRecord);
 							break;
 						case UNKNOWN:
 						case NONE:
@@ -233,7 +239,7 @@ public class WmParser extends AbstractParser {
 							+ ndfFileName);
 				}
 			} else {
-				String idfFileName = Paths.get(directory).resolve(FILE_IDF)
+				String idfFileName = Paths.get(directory).resolve("node.idf")
 						.toString();
 				File idfFile = new File(idfFileName);
 				String nsName = null;
@@ -272,7 +278,7 @@ public class WmParser extends AbstractParser {
 						.list(new FilenameFilter() {
 							@Override
 							public boolean accept(File dir, String name) {
-								return !name.equals(FILE_IDF);
+								return !name.equals("node.idf");
 							}
 						})) {
 					String subDirectory = Paths.get(directory)
@@ -285,6 +291,18 @@ public class WmParser extends AbstractParser {
 		}
 	}
 
+	/**
+	 * @author Xiaowei Wang
+	 * @since 1.2
+	 * @param root
+	 *            The ASTFlowRoot object represents the root element of flow
+	 *            service.
+	 * @param parentNode
+	 *            The parent node.
+	 * 
+	 *            This method converts sub-elements of parentNode to AST nodes
+	 *            and add them as sub-nodes.
+	 */
 	private void parseFlowElements(ASTFlowRoot root,
 			AbstractFlowElement parentNode) {
 		FlowElement parentElement = parentNode.getFlowElement();
@@ -305,14 +323,30 @@ public class WmParser extends AbstractParser {
 				parseFlowElements(root, new ASTFlowLoop(root.getPackage(),
 						root, parentNode, (FlowLoop) childElement));
 			} else if (childFlowType == FlowType.INVOKE) {
-				new ASTFlowInvoke(root.getPackage(), root, parentNode,
-						(FlowInvoke) childElement);
+				parseFlowElements(root, new ASTFlowInvoke(root.getPackage(),
+						root, parentNode, (FlowInvoke) childElement));
 			} else if (childFlowType == FlowType.EXIT) {
 				new ASTFlowExit(root.getPackage(), root, parentNode,
 						(FlowExit) childElement);
 			} else if (childFlowType == FlowType.MAP) {
-				new ASTFlowMap(root.getPackage(), root, parentNode,
-						(FlowMap) childElement);
+				ASTFlowMap astFlowMap = new ASTFlowMap(root.getPackage(), root,
+						parentNode, (FlowMap) childElement);
+				
+				parseFlowElements(root, astFlowMap);
+			} else if (childFlowType == FlowType.TRANSFORMER) {
+				parseFlowElements(root,
+						new ASTFlowTransformer(root.getPackage(), root,
+								(ASTFlowMap) parentNode,
+								(FlowMapInvoke) childElement));
+			} else if (childFlowType == FlowType.LINK) {
+				new ASTFlowLink(root.getPackage(), root,
+						(ASTFlowMap) parentNode, (FlowMapCopy) childElement);
+			} else if (childFlowType == FlowType.SET) {
+				new ASTFlowSet(root.getPackage(), root,
+						(ASTFlowMap) parentNode, (FlowMapSet) childElement);
+			} else if (childFlowType == FlowType.DROP) {
+				new ASTFlowDrop(root.getPackage(), root,
+						(ASTFlowMap) parentNode, (FlowMapDelete) childElement);
 			} else {
 				throw new RuntimeException("Found unsupported flow element "
 						+ childFlowType.toString());

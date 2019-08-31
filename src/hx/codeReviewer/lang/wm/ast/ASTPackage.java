@@ -8,7 +8,7 @@ import com.wm.util.Values;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.3
+ * @version 1.4
  * 
  *          This class represents node com.wm.lang.ns.NSPackage.
  *
@@ -17,7 +17,7 @@ public class ASTPackage extends AbstractWmNode {
 
 	private String name;
 	private Manifest manifest;
-	private ConcurrentHashMap<String, AbstractWmNode> nodes = new ConcurrentHashMap<String, AbstractWmNode>();
+	private ConcurrentHashMap<String, AbstractNsNode> namespace = new ConcurrentHashMap<String, AbstractNsNode>();
 	/**
 	 * Added since v1.3.
 	 */
@@ -76,8 +76,8 @@ public class ASTPackage extends AbstractWmNode {
 	 *            The nsName of indexed node.
 	 * @return Indexed node by given nsName.
 	 */
-	public AbstractWmNode getNode(String nsName) {
-		return nodes.get(nsName);
+	public AbstractNsNode getNode(String nsName) {
+		return namespace.get(nsName);
 	}
 
 	/**
@@ -88,8 +88,8 @@ public class ASTPackage extends AbstractWmNode {
 	 * @param node
 	 *            The node to be indexed.
 	 */
-	public void indexNode(String nsName, AbstractWmNode node) {
-		nodes.put(nsName, node);
+	public void indexNode(String nsName, AbstractNsNode node) {
+		namespace.put(nsName, node);
 	}
 
 	/**

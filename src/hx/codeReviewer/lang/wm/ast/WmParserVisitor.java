@@ -3,7 +3,7 @@ package hx.codeReviewer.lang.wm.ast;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.2
+ * @version 1.3
  * 
  *          The interface defines methods to visit all kinds of AST nodes.
  */
@@ -43,4 +43,19 @@ public interface WmParserVisitor {
 	public abstract Object visit(ASTFlowSequence node, Object data);
 
 	public abstract Object visit(ASTFlowService node, Object data);
+
+	/**
+	 * @author Xiaowei Wang
+	 * @since 1.3
+	 */
+	public abstract Object visit(ASTFlowLink node, Object data);
+
+	public abstract Object visit(ASTFlowSet node, Object data);
+
+	public abstract Object visit(ASTFlowDrop node, Object data);
+
+	public abstract Object visit(ASTFlowTransformer node, Object data);
+	
+	public abstract Object visit(ASTDocumentType node, Object data);
+
 }

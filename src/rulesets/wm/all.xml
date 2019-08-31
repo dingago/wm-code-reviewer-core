@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 
-<ruleset name="All"
-    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
-  <description>
-The All ruleset contains all rules.
-  </description>
+<ruleset name="All" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+	<description>
+		The All ruleset contains all rules.
+	</description>
 
-    <rule ref="category/wm/bestpractices.xml" />
-    <rule ref="category/wm/codestyle.xml" />
-    <rule ref="category/wm/errorprone.xml" />
-    <rule ref="category/wm/performance.xml" />
-    <rule ref="category/wm/documentation.xml" />
+	<rule ref="category/wm/bestpractices.xml" />
+	<rule ref="category/wm/codestyle.xml" />
+	<rule ref="category/wm/errorprone.xml" />
+	<rule ref="category/wm/performance.xml" />
+	<rule ref="category/wm/documentation.xml" />
+	<rule ref="category/wm/security.xml" />
 </ruleset>

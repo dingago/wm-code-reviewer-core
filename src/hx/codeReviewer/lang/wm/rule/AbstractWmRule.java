@@ -1,14 +1,19 @@
 package hx.codeReviewer.lang.wm.rule;
 
+import hx.codeReviewer.lang.wm.ast.ASTDocumentType;
 import hx.codeReviewer.lang.wm.ast.ASTFlowBranch;
+import hx.codeReviewer.lang.wm.ast.ASTFlowDrop;
 import hx.codeReviewer.lang.wm.ast.ASTFlowExit;
 import hx.codeReviewer.lang.wm.ast.ASTFlowInvoke;
+import hx.codeReviewer.lang.wm.ast.ASTFlowLink;
 import hx.codeReviewer.lang.wm.ast.ASTFlowLoop;
 import hx.codeReviewer.lang.wm.ast.ASTFlowMap;
 import hx.codeReviewer.lang.wm.ast.ASTFlowRepeat;
 import hx.codeReviewer.lang.wm.ast.ASTFlowRoot;
 import hx.codeReviewer.lang.wm.ast.ASTFlowSequence;
 import hx.codeReviewer.lang.wm.ast.ASTFlowService;
+import hx.codeReviewer.lang.wm.ast.ASTFlowSet;
+import hx.codeReviewer.lang.wm.ast.ASTFlowTransformer;
 import hx.codeReviewer.lang.wm.ast.ASTFolder;
 import hx.codeReviewer.lang.wm.ast.ASTJavaService;
 import hx.codeReviewer.lang.wm.ast.ASTPackage;
@@ -25,7 +30,7 @@ import net.sourceforge.pmd.lang.rule.AbstractRule;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.2
+ * @version 1.3
  * 
  *          The abstract class for all rules webMethods rules.
  *
@@ -120,4 +125,27 @@ public abstract class AbstractWmRule extends AbstractRule implements
 		return visit((WmNode) node, data);
 	}
 
+	@Override
+	public Object visit(ASTFlowLink node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowSet node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowDrop node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	@Override
+	public Object visit(ASTFlowTransformer node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
+	public Object visit(ASTDocumentType node, Object data) {
+		return visit((WmNode) node, data);
+	}
 }

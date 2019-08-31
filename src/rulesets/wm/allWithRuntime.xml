@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<ruleset name="All" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+	<description>
+		The All ruleset contains all rules with runtime support.
+	</description>
+
+	<rule ref="category/wm/errorprone.xml/DuplicateNodeRule" />
+	<rule ref="category/wm/errorprone.xml/ReplicationServicesRule" />
+	<rule ref="category/wm/errorprone.xml/RequiredPackagesRule" />
+	<rule ref="category/wm/security.xml/HardcodingPasswordRule" />
+</ruleset>

@@ -10,7 +10,7 @@ import hx.codeReviewer.lang.wm.ast.AbstractNsNode.NodeType;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.2
+ * @version 1.3
  * 
  *          This class helps to retrieve dynamic information on runtime.
  *
@@ -61,5 +61,18 @@ public class RuntimeUtil {
 		} else {
 			return _package.getVersion();
 		}
+	}
+
+	/**
+	 * @author Xiaowei Wang
+	 * @since 1.3
+	 * @param nodeName
+	 *            The name of node.
+	 * @return The object of corresponding node.
+	 * 
+	 *         This method returns the NSNode object with the given node name.
+	 */
+	public static NSNode getNode(String nodeName) {
+		return Namespace.current().getNode(nodeName);
 	}
 }
