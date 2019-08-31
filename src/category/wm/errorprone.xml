@@ -43,7 +43,7 @@
 	</rule>
 
 	<rule name="DuplicateFlowBranchesRule" language="wm" since="6.17"
-		message="Flow service {0} has duplicate label '{1}' under Flow Branch at {2}"
+		message="Flow service {0} has duplicate label {1} under Flow Branch at {2}"
 		class="hx.codeReviewer.lang.wm.rule.errorprone.DuplicateFlowBranchesRule">
 		<description>
 			All child elements under Flow Branch should has different

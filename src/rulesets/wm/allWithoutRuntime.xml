@@ -1,14 +1,20 @@
 <?xml version="1.0"?>
 
-<ruleset name="All" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+<ruleset name="All Without Runtime" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 	<description>
-		The All ruleset contains all rules without runtime support.
+		The All Without Runtime ruleset contains all rules without
+		support of runtime, so you could run it anywhere.
 	</description>
 
-	<rule ref="category/wm/bestpractices.xml" />
-	<rule ref="category/wm/codestyle.xml" />
+	<rule ref="category/wm/bestpractices.xml/DestroyCursorRule" />
+	<rule ref="category/wm/bestpractices.xml/SingleTopLevelFolderRule" />
+	<rule ref="category/wm/bestpractices.xml/UniqueTopLevelFolderRule" />
+	<rule ref="category/wm/bestpractices.xml/DuplicateSignatureField" />
+	<rule ref="category/wm/bestpractices.xml/DuplicateDocumentFieldRule" />
+	<rule ref="category/wm/codestyle.xml/PackageNamingConventionsRule" />
+	<rule ref="category/wm/codestyle.xml/FolderNamingConventionsRule" />
 	<rule ref="category/wm/errorprone.xml/EmptyPackageRule" />
 	<rule ref="category/wm/errorprone.xml/EmptyFolderRule" />
 	<rule ref="category/wm/errorprone.xml/EmptyFlowServiceRule" />
@@ -23,6 +29,8 @@
 	<rule ref="category/wm/errorprone.xml/FLowLoopWithoutInArrayRule" />
 	<rule ref="category/wm/errorprone.xml/InvalidFlowBranchRule" />
 	<rule ref="category/wm/errorprone.xml/NoFailureMessageRule" />
-	<rule ref="category/wm/performance.xml" />
-	<rule ref="category/wm/documentation.xml" />
+	<rule ref="category/wm/performance.xml/ServiceValidationRule" />
+	<rule ref="category/wm/performance.xml/SaveDebugPipelineRule" />
+	<rule ref="category/wm/performance.xml/ServiceAuditingRule" />
+	<rule ref="category/wm/documentation.xml/NoCommentRule" />
 </ruleset>

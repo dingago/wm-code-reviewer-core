@@ -46,11 +46,21 @@
 	</rule>
 
 	<rule name="DuplicateSignatureField" language="wm" since="6.17"
-		message="Ensure that there is no duplicate field defined in service {0}"
+		message="Ensure that there is no duplicate field defined in signature of service {0}"
 		class="hx.codeReviewer.lang.wm.rule.bestpractices.DuplicateSignatureFieldRule">
 		<description>
 			Makes sure no duplicate field is defined in service
 			signature.
+		</description>
+		<priority>3</priority>
+	</rule>
+
+	<rule name="DuplicateDocumentFieldRule" language="wm" since="6.17"
+		message="Ensure that there is no duplicate field defined in document type {0}"
+		class="hx.codeReviewer.lang.wm.rule.bestpractices.DuplicateDocumentFieldRule">
+		<description>
+			Makes sure no duplicate field is defined in document
+			type.
 		</description>
 		<priority>3</priority>
 	</rule>

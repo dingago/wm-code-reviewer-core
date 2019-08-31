@@ -1,59 +1,42 @@
 package hx.codeReviewer.lang.wm.rule.bestpractices;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.wm.lang.ns.NSRecord;
 import com.wm.lang.ns.NSSignature;
 
 import hx.codeReviewer.lang.wm.ast.ASTFlowService;
 import hx.codeReviewer.lang.wm.ast.ASTJavaService;
-import hx.codeReviewer.lang.wm.ast.AbstractNsService;
-import hx.codeReviewer.lang.wm.rule.AbstractWmRule;
+import hx.codeReviewer.lang.wm.ast.AbstractBaseService;
+import hx.codeReviewer.lang.wm.rule.AbstractBaseServiceRule;
+import hx.codeReviewer.util.NSRecordUtil;
 
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          Makes sure no duplicate field is defined in service signature.
  */
-public class DuplicateSignatureFieldRule extends AbstractWmRule {
+public class DuplicateSignatureFieldRule extends AbstractBaseServiceRule {
 
 	@Override
 	public Object visit(ASTJavaService node, Object data) {
-		return visit((AbstractNsService) node, data);
+		return visit((AbstractBaseService) node, data);
 	}
 
 	@Override
 	public Object visit(ASTFlowService node, Object data) {
-		return visit((AbstractNsService) node, data);
+		return visit((AbstractBaseService) node, data);
 	}
 
-	private Object visit(AbstractNsService node, Object data) {
+	public Object visit(AbstractBaseService node, Object data) {
 		NSSignature nsSignature = node.getSignature();
 		if (nsSignature != null) {
-			if (isDuplicateFieldFound(nsSignature.getInput())
-					|| isDuplicateFieldFound(nsSignature.getOutput())) {
+			if (NSRecordUtil
+					.isDuplicateFieldFound(nsSignature.getInput(), true)
+					|| NSRecordUtil.isDuplicateFieldFound(
+							nsSignature.getOutput(), true)) {
 				addViolation(data, node, node.getNsName());
 			}
 		}
 		return null;
 	}
-
-	private static boolean isDuplicateFieldFound(NSRecord nsRecord) {
-		if (nsRecord != null){
-			Set<String> fieldNames = new HashSet<String>();
-			for (int i = 0; i < nsRecord.getFieldCount(); i++) {
-				String fieldName = nsRecord.getField(i).getName();
-				if (fieldNames.contains(fieldName)) {
-					return true;
-				} else {
-					fieldNames.add(fieldName);
-				}
-			}
-		}
-		return false;
-	}
-
 }
