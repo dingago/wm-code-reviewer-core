@@ -2,7 +2,7 @@ package hx.codeReviewer.lang.wm.rule.bestpractices;
 
 import hx.codeReviewer.lang.wm.ast.ASTDocumentType;
 import hx.codeReviewer.lang.wm.rule.AbstractWmRule;
-import hx.codeReviewer.util.NSRecordUtil;
+import hx.codeReviewer.util.NSFieldUtil;
 
 /**
  * 
@@ -15,7 +15,7 @@ public class DuplicateDocumentFieldRule extends AbstractWmRule {
 
 	@Override
 	public Object visit(ASTDocumentType node, Object data) {
-		if (NSRecordUtil.isDuplicateFieldFound(node.getContent(), true)) {
+		if (NSFieldUtil.isDuplicateFieldFound(node.getContent(), true)) {
 			addViolation(data, node, node.getNsName());
 		}
 		return null;

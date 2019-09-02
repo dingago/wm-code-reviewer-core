@@ -160,8 +160,19 @@
 		message="Failure message is not defined in Flow Service {0} at {1}"
 		class="hx.codeReviewer.lang.wm.rule.errorprone.NoFailureMessageRule">
 		<description>
-			Makes sure failure-message is set to some value if signal equals to
+			Makes sure failure-message is set to some value if signal
+			equals to
 			FAILURE for FLowExit.
+		</description>
+		<priority>3</priority>
+	</rule>
+
+	<rule name="IncompatibleMappingRule" language="wm" since="6.17"
+		message="Found incompatible mapping from {0} to {1} in Flow Service {2} at {3}"
+		class="hx.codeReviewer.lang.wm.rule.errorprone.IncompatibleMappingRule">
+		<description>
+			Makes sure there is no incompatible mapping e.g. Integer
+			to String in FlowMapCopy.
 		</description>
 		<priority>3</priority>
 	</rule>

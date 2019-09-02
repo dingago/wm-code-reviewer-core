@@ -6,7 +6,7 @@ import hx.codeReviewer.lang.wm.ast.ASTFlowService;
 import hx.codeReviewer.lang.wm.ast.ASTJavaService;
 import hx.codeReviewer.lang.wm.ast.AbstractBaseService;
 import hx.codeReviewer.lang.wm.rule.AbstractBaseServiceRule;
-import hx.codeReviewer.util.NSRecordUtil;
+import hx.codeReviewer.util.NSFieldUtil;
 
 /**
  * 
@@ -30,9 +30,9 @@ public class DuplicateSignatureFieldRule extends AbstractBaseServiceRule {
 	public Object visit(AbstractBaseService node, Object data) {
 		NSSignature nsSignature = node.getSignature();
 		if (nsSignature != null) {
-			if (NSRecordUtil
+			if (NSFieldUtil
 					.isDuplicateFieldFound(nsSignature.getInput(), true)
-					|| NSRecordUtil.isDuplicateFieldFound(
+					|| NSFieldUtil.isDuplicateFieldFound(
 							nsSignature.getOutput(), true)) {
 				addViolation(data, node, node.getNsName());
 			}

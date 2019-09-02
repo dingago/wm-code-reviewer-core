@@ -29,6 +29,7 @@
 	<rule ref="category/wm/errorprone.xml/FLowLoopWithoutInArrayRule" />
 	<rule ref="category/wm/errorprone.xml/InvalidFlowBranchRule" />
 	<rule ref="category/wm/errorprone.xml/NoFailureMessageRule" />
+	<rule ref="category/wm/errorprone.xml/IncompatibleMappingRule" />
 	<rule ref="category/wm/performance.xml/ServiceValidationRule" />
 	<rule ref="category/wm/performance.xml/SaveDebugPipelineRule" />
 	<rule ref="category/wm/performance.xml/ServiceAuditingRule" />
