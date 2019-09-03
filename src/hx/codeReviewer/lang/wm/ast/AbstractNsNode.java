@@ -5,7 +5,7 @@ import com.wm.util.Values;
 
 /**
  * @author Xiaowei Wang
- * @version 1.5
+ * @version 1.6
  * 
  *          The abstract AST node represents any webMethods node extends from
  *          class com.wm.lang.ns.NSNode.
@@ -42,6 +42,10 @@ public abstract class AbstractNsNode extends AbstractWmNode {
 
 	public NodeType getType() {
 		return getNodeType(nsNode.getValues());
+	}
+	
+	public NSNode getNSNode(){
+		return nsNode;
 	}
 
 	public enum NodeType {

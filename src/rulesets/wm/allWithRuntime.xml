@@ -8,6 +8,7 @@
 		support of runtime, so you could only run it on Integration Server.
 	</description>
 
+	<rule ref="category/wm/bestpractices.xml/UndefinedVariableRule" />
 	<rule ref="category/wm/errorprone.xml/DuplicateNodeRule" />
 	<rule ref="category/wm/errorprone.xml/ReplicationServicesRule" />
 	<rule ref="category/wm/errorprone.xml/RequiredPackagesRule" />
