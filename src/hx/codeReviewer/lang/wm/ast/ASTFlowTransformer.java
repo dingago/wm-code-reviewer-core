@@ -5,12 +5,12 @@ import com.wm.lang.flow.FlowMapInvoke;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          This class represents flow element com.wm.lang.flow.FlowMapInvoke.
  *
  */
-public class ASTFlowTransformer extends ASTFlowInvoke {
+public class ASTFlowTransformer extends AbstractFlowElement {
 
 	public ASTFlowTransformer(ASTPackage _package, ASTFlowRoot root,
 			ASTFlowMap parentNode, FlowMapInvoke flowMapInvoke) {
@@ -26,5 +26,9 @@ public class ASTFlowTransformer extends ASTFlowInvoke {
 	@Override
 	public Object jjtAccept(WmParserVisitor visitor, Object data) {
 		return visitor.visit(this, data);
+	}
+	
+	public String getService() {
+		return ((FlowMapInvoke) flowElement).getService().getFullName();
 	}
 }
