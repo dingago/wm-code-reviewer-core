@@ -11,7 +11,7 @@ import hx.codeReviewer.util.NSFieldUtil;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          Makes sure there is no incompatible mapping e.g. Integer to String
  *          in FlowMapCopy.
@@ -20,56 +20,59 @@ public class IncompatibleMappingRule extends AbstractWmRule {
 
 	@Override
 	public Object visit(ASTFlowLink node, Object data) {
-		MapWmPathInfo mapFromPath = MapWmPathInfo.create(node.getMapFrom());
-		MapWmPathInfo mapToPath = MapWmPathInfo.create(node.getMapTo());
-		WmPathItem mapFromPathItem = mapFromPath.getPathItems()[mapFromPath
-				.getPathItems().length - 1];
-		WmPathItem mapToPathItem = mapToPath.getPathItems()[mapToPath
-				.getPathItems().length - 1];
+		if (node.isEnabled()) {
+			MapWmPathInfo mapFromPath = MapWmPathInfo.create(node.getMapFrom());
+			MapWmPathInfo mapToPath = MapWmPathInfo.create(node.getMapTo());
+			WmPathItem mapFromPathItem = mapFromPath.getPathItems()[mapFromPath
+					.getPathItems().length - 1];
+			WmPathItem mapToPathItem = mapToPath.getPathItems()[mapToPath
+					.getPathItems().length - 1];
 
-		switch (mapToPathItem.getType()) {
-		case NSField.FIELD_STRING:
-			switch (mapFromPathItem.getType()) {
+			switch (mapToPathItem.getType()) {
 			case NSField.FIELD_STRING:
-				return null;
-			case NSField.FIELD_OBJECT:
-				switch (mapFromPathItem.getJavaType()) {
-				case (NSFieldUtil.JAVA_TYPE_UNKNOWN):
+				switch (mapFromPathItem.getType()) {
+				case NSField.FIELD_STRING:
 					return null;
+				case NSField.FIELD_OBJECT:
+					switch (mapFromPathItem.getJavaType()) {
+					case (NSFieldUtil.JAVA_TYPE_UNKNOWN):
+						return null;
+					}
 				}
-			}
-			break;
-		case NSField.FIELD_RECORD:
-		case NSField.FIELD_RECORDREF:
-			switch (mapFromPathItem.getType()) {
+				break;
 			case NSField.FIELD_RECORD:
 			case NSField.FIELD_RECORDREF:
-				return null;
+				switch (mapFromPathItem.getType()) {
+				case NSField.FIELD_RECORD:
+				case NSField.FIELD_RECORDREF:
+					return null;
+				case NSField.FIELD_OBJECT:
+					switch (mapFromPathItem.getJavaType()) {
+					case (NSFieldUtil.JAVA_TYPE_UNKNOWN):
+						return null;
+					}
+				}
+				break;
 			case NSField.FIELD_OBJECT:
-				switch (mapFromPathItem.getJavaType()) {
+				switch (mapToPathItem.getJavaType()) {
 				case (NSFieldUtil.JAVA_TYPE_UNKNOWN):
 					return null;
+				default:
+					if (mapFromPathItem.getType() == NSField.FIELD_OBJECT
+							&& (mapFromPathItem.getJavaType() == NSFieldUtil.JAVA_TYPE_UNKNOWN || mapFromPathItem
+									.getJavaType() == mapToPathItem
+									.getJavaType())) {
+						return null;
+					}
 				}
+				break;
 			}
-			break;
-		case NSField.FIELD_OBJECT:
-			switch (mapToPathItem.getJavaType()) {
-			case (NSFieldUtil.JAVA_TYPE_UNKNOWN):
-				return null;
-			default:
-				if (mapFromPathItem.getType() == NSField.FIELD_OBJECT
-						&& (mapFromPathItem.getJavaType() == NSFieldUtil.JAVA_TYPE_UNKNOWN || mapFromPathItem
-								.getJavaType() == mapToPathItem.getJavaType())) {
-					return null;
-				}
-			}
-			break;
+			addViolation(
+					data,
+					node,
+					new String[] { node.getMapFrom(), node.getMapTo(),
+							node.getNsName(), node.getPath() });
 		}
-		addViolation(
-				data,
-				node,
-				new String[] { node.getMapFrom(), node.getMapTo(),
-						node.getNsName(), node.getPath() });
 		return null;
 	}
 

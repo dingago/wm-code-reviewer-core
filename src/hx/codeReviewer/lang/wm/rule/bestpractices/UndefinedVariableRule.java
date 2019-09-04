@@ -29,7 +29,7 @@ import hx.codeReviewer.lang.wm.rule.AbstractWmRule;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          Makes sure the variable is defined before it's mapped.
  */
@@ -70,6 +70,10 @@ public class UndefinedVariableRule extends AbstractWmRule {
 				currentFlowElement = currentFlowElement.getParent();
 			}
 		}
+		if (!currentFlowElement.isEnabled()) {
+			return null;
+		}
+
 		FlowElement[] previousFlowElements = calculatePreviousFlowElements(currentFlowElement);
 		loopOnPreviousFlowElements: for (FlowElement previousFlowElement : previousFlowElements) {
 			NSSignature pipelineSignature = signatureState
@@ -157,15 +161,25 @@ public class UndefinedVariableRule extends AbstractWmRule {
 		if (currentIndex == 0) {
 			previousFlowElements.add(currentFlowElement.getParent());
 		} else {
-			FlowElement previousFlowElement = currentFlowElement.getParent()
-					.getNodeAt(currentIndex - 1);
-			if (previousFlowElement.getNodeCount() == 0
-					|| previousFlowElement instanceof FlowMap
-					|| previousFlowElement instanceof FlowInvoke) {
-				previousFlowElements.add(previousFlowElement);
-			} else {
-				collectLastFlowElements(previousFlowElement,
-						previousFlowElements);
+			boolean collected = false;
+			for (int i = currentIndex - 1; i >= 0; i--) {
+				FlowElement previousFlowElement = currentFlowElement
+						.getParent().getNodeAt(i);
+				if (previousFlowElement.isEnabled()) {
+					collected = true;
+					if (previousFlowElement.getNodeCount() == 0
+							|| previousFlowElement instanceof FlowMap
+							|| previousFlowElement instanceof FlowInvoke) {
+						previousFlowElements.add(previousFlowElement);
+					} else {
+						collectLastFlowElements(previousFlowElement,
+								previousFlowElements);
+					}
+					break;
+				}
+			}
+			if (!collected) {
+				previousFlowElements.add(currentFlowElement.getParent());
 			}
 		}
 		return previousFlowElements
@@ -187,17 +201,33 @@ public class UndefinedVariableRule extends AbstractWmRule {
 	 */
 	private static void collectLastFlowElements(FlowElement flowElement,
 			List<FlowElement> lastFlowElements) {
-		int nodeCount = flowElement.getNodeCount();
-		if (nodeCount == 0 || flowElement instanceof FlowMap
+		if (flowElement.getNodeCount() == 0 || flowElement instanceof FlowMap
 				|| flowElement instanceof FlowInvoke) {
 			lastFlowElements.add(flowElement);
 		} else if (flowElement instanceof FlowBranch) {
+			boolean collected = false;
 			for (FlowElement branchFlowElement : flowElement.getNodes()) {
-				collectLastFlowElements(branchFlowElement, lastFlowElements);
+				if (branchFlowElement.isEnabled()) {
+					collectLastFlowElements(branchFlowElement, lastFlowElements);
+					collected = true;
+				}
+			}
+			if (!collected) {
+				lastFlowElements.add(flowElement);
 			}
 		} else {
-			FlowElement lastFlowElement = flowElement.getNodeAt(nodeCount - 1);
-			collectLastFlowElements(lastFlowElement, lastFlowElements);
+			boolean collected = false;
+			for (int i = flowElement.getNodeCount() - 1; i >= 0; i--) {
+				FlowElement lastFlowElement = flowElement.getNodeAt(i);
+				if (lastFlowElement.isEnabled()) {
+					collectLastFlowElements(lastFlowElement, lastFlowElements);
+					collected = true;
+					break;
+				}
+			}
+			if (!collected) {
+				lastFlowElements.add(flowElement);
+			}
 		}
 	}
 }

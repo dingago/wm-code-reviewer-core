@@ -19,47 +19,61 @@ import hx.codeReviewer.lang.wm.rule.AbstractWmRule;
 /**
  * 
  * @author Xiaowei Wang
- * @version 1.0
+ * @version 1.1
  * 
  *          Makes sure there is no missing references in flow service.
  */
 public class MissingReferencesInFlowRule extends AbstractWmRule {
 
 	public Object visit(ASTFlowInvoke node, Object data) {
-		String serviceName = node.getService();
-		NSNode nsNode = node.getPackage().getNamespace()
-				.getNode(NSName.create(serviceName));
-		if (nsNode == null || !(nsNode instanceof NSService)) {
-			addViolation(data, node, new String[] { "Service", serviceName,
-					node.getNsName(), node.getPath() });
+		if (node.isEnabled()) {
+			String serviceName = node.getService();
+			NSNode nsNode = node.getPackage().getNamespace()
+					.getNode(NSName.create(serviceName));
+			if (nsNode == null || !(nsNode instanceof NSService)) {
+				addViolation(data, node, new String[] { "Service", serviceName,
+						node.getNsName(), node.getPath() });
+			}
+			return super.visit(node, data);
+		} else {
+			return null;
 		}
-		return super.visit(node, data);
 	}
 
 	public Object visit(ASTFlowTransformer node, Object data) {
-		String serviceName = node.getService();
-		NSNode nsNode = node.getPackage().getNamespace()
-				.getNode(NSName.create(serviceName));
-		if (nsNode == null || !(nsNode instanceof NSService)) {
-			addViolation(data, node, new String[] { "Service", serviceName,
-					node.getNsName(), node.getPath() });
+		if (node.isEnabled()) {
+			String serviceName = node.getService();
+			NSNode nsNode = node.getPackage().getNamespace()
+					.getNode(NSName.create(serviceName));
+			if (nsNode == null || !(nsNode instanceof NSService)) {
+				addViolation(data, node, new String[] { "Service", serviceName,
+						node.getNsName(), node.getPath() });
+			}
+			return super.visit(node, data);
+		} else {
+			return null;
 		}
-		return super.visit(node, data);
 	}
 
 	public Object visit(ASTFlowLink node, Object data) {
-		processMissingDocumentType(node, data, node.getMapFrom());
-		processMissingDocumentType(node, data, node.getMapTo());
+		if (node.isEnabled()) {
+			processMissingDocumentType(node, data, node.getMapFrom());
+			processMissingDocumentType(node, data, node.getMapTo());
+		}
 		return null;
 	}
 
 	public Object visit(ASTFlowSet node, Object data) {
-		processMissingDocumentType(node, data, node.getField());
+		if (node.isEnabled()) {
+			processMissingDocumentType(node, data, node.getField());
+		}
 		return null;
 	}
 
 	public Object visit(ASTFlowDrop node, Object data) {
-		processMissingDocumentType(node, data, node.getField());
+		if (node.isEnabled()) {
+			processMissingDocumentType(node, data, node.getField());
+		}
 		return null;
 	}
 
