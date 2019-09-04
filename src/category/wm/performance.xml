@@ -8,16 +8,6 @@
 		Rules which enforce generally accepted performance.
 	</description>
 
-	<rule name="ServiceValidationRule" language="wm" since="6.17"
-		message="Inputs/outputs validation is enabled in service {0}"
-		class="hx.codeReviewer.lang.wm.rule.performance.ServiceValidationRule">
-		<description>
-			Ensure that service inputs/outputs validation is disabled
-			for better performance.
-		</description>
-		<priority>3</priority>
-	</rule>
-
 	<rule name="SaveDebugPipelineRule" language="wm" since="6.17"
 		message="Debug pipeline is set to save in service {0}"
 		class="hx.codeReviewer.lang.wm.rule.performance.SaveDebugPipelineRule">
@@ -25,15 +15,26 @@
 			Ensure that service debug pipeline is not set to save for
 			better performance.
 		</description>
-		<priority>3</priority>
+		<priority>4</priority>
 	</rule>
 
 	<rule name="ServiceAuditingRule" language="wm" since="6.17"
-		message="Service auditing is set to {0} which is improper in service {1}" class="hx.codeReviewer.lang.wm.rule.performance.ServiceAuditingRule">
+		message="Service auditing is set to {0} which is improper in service {1}"
+		class="hx.codeReviewer.lang.wm.rule.performance.ServiceAuditingRule">
 		<description>
 			Makes sure the service auditing is set properly for
 			better performance.
 		</description>
-		<priority>3</priority>
+		<priority>4</priority>
+	</rule>
+
+	<rule name="ServiceValidationRule" language="wm" since="6.17"
+		message="Inputs/outputs validation is enabled in service {0}"
+		class="hx.codeReviewer.lang.wm.rule.performance.ServiceValidationRule">
+		<description>
+			Ensure that service inputs/outputs validation is disabled
+			for better performance.
+		</description>
+		<priority>4</priority>
 	</rule>
 </ruleset>

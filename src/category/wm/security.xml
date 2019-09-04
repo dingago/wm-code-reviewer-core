@@ -14,6 +14,6 @@
 		<description>Makes sure there is no hard-coding value set for a
 			password field in Flow Service.
 		</description>
-		<priority>3</priority>
+		<priority>2</priority>
 	</rule>
 </ruleset>

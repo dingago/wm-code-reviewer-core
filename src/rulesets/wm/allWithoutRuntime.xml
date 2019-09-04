@@ -9,29 +9,29 @@
 	</description>
 
 	<rule ref="category/wm/bestpractices.xml/DestroyCursorRule" />
+	<rule ref="category/wm/bestpractices.xml/DisabledFlowElementRule" />
+	<rule ref="category/wm/bestpractices.xml/DuplicateDocumentFieldRule" />
+	<rule ref="category/wm/bestpractices.xml/DuplicateSignatureField" />
+	<rule ref="category/wm/bestpractices.xml/EmptyFlowServiceRule" />
+	<rule ref="category/wm/bestpractices.xml/EmptyFolderRule" />
+	<rule ref="category/wm/bestpractices.xml/EmptyPackageRule" />
+	<rule ref="category/wm/bestpractices.xml/RestoreDebugPipelineRule" />
 	<rule ref="category/wm/bestpractices.xml/SingleTopLevelFolderRule" />
 	<rule ref="category/wm/bestpractices.xml/UniqueTopLevelFolderRule" />
-	<rule ref="category/wm/bestpractices.xml/DuplicateSignatureField" />
-	<rule ref="category/wm/bestpractices.xml/DuplicateDocumentFieldRule" />
-	<rule ref="category/wm/codestyle.xml/PackageNamingConventionsRule" />
 	<rule ref="category/wm/codestyle.xml/FolderNamingConventionsRule" />
-	<rule ref="category/wm/errorprone.xml/EmptyPackageRule" />
-	<rule ref="category/wm/errorprone.xml/EmptyFolderRule" />
-	<rule ref="category/wm/errorprone.xml/EmptyFlowServiceRule" />
-	<rule ref="category/wm/errorprone.xml/EmptyFlowBranchRule" />
+	<rule ref="category/wm/codestyle.xml/PackageNamingConventionsRule" />
+	<rule ref="category/wm/documentation.xml/NoCommentRule" />
 	<rule ref="category/wm/errorprone.xml/DuplicateFlowBranchesRule" />
-	<rule ref="category/wm/errorprone.xml/RestoreDebugPipelineRule" />
-	<rule ref="category/wm/errorprone.xml/DisabledFlowElementRule" />
-	<rule ref="category/wm/errorprone.xml/StartupServicesRule" />
-	<rule ref="category/wm/errorprone.xml/ShutdownServicesRule" />
-	<rule ref="category/wm/errorprone.xml/NoExitFromRule" />
-	<rule ref="category/wm/errorprone.xml/InvalidExitFromRule" />
+	<rule ref="category/wm/errorprone.xml/EmptyFlowBranchRule" />
 	<rule ref="category/wm/errorprone.xml/FLowLoopWithoutInArrayRule" />
-	<rule ref="category/wm/errorprone.xml/InvalidFlowBranchRule" />
-	<rule ref="category/wm/errorprone.xml/NoFailureMessageRule" />
 	<rule ref="category/wm/errorprone.xml/IncompatibleMappingRule" />
-	<rule ref="category/wm/performance.xml/ServiceValidationRule" />
+	<rule ref="category/wm/errorprone.xml/InvalidExitFromRule" />
+	<rule ref="category/wm/errorprone.xml/InvalidFlowBranchRule" />
+	<rule ref="category/wm/errorprone.xml/NoExitFromRule" />
+	<rule ref="category/wm/errorprone.xml/NoFailureMessageRule" />
+	<rule ref="category/wm/errorprone.xml/ShutdownServicesRule" />
+	<rule ref="category/wm/errorprone.xml/StartupServicesRule" />
 	<rule ref="category/wm/performance.xml/SaveDebugPipelineRule" />
 	<rule ref="category/wm/performance.xml/ServiceAuditingRule" />
-	<rule ref="category/wm/documentation.xml/NoCommentRule" />
+	<rule ref="category/wm/performance.xml/ServiceValidationRule" />
 </ruleset>

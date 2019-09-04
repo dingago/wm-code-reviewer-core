@@ -10,10 +10,10 @@
 
 	<rule ref="category/wm/bestpractices.xml/UndefinedVariableRule" />
 	<rule ref="category/wm/errorprone.xml/DuplicateNodeRule" />
-	<rule ref="category/wm/errorprone.xml/ReplicationServicesRule" />
-	<rule ref="category/wm/errorprone.xml/RequiredPackagesRule" />
-	<rule ref="category/wm/security.xml/HardcodingPasswordRule" />
 	<rule ref="category/wm/errorprone.xml/MissingReferencesInFlowRule" />
 	<rule
 		ref="category/wm/errorprone.xml/MissingReferencesInServiceSignatureRule" />
+	<rule ref="category/wm/errorprone.xml/ReplicationServicesRule" />
+	<rule ref="category/wm/errorprone.xml/RequiredPackagesRule" />
+	<rule ref="category/wm/security.xml/HardcodingPasswordRule" />
 </ruleset>

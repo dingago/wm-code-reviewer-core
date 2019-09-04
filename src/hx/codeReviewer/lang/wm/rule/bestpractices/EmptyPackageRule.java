@@ -1,4 +1,4 @@
-package hx.codeReviewer.lang.wm.rule.errorprone;
+package hx.codeReviewer.lang.wm.rule.bestpractices;
 
 import hx.codeReviewer.lang.wm.ast.ASTPackage;
 import hx.codeReviewer.lang.wm.rule.AbstractWmRule;

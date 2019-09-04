@@ -13,6 +13,6 @@
 		<description>
 			Makes sure there is always comment for a node.
 		</description>
-		<priority>3</priority>
+		<priority>5</priority>
 	</rule>
 </ruleset>

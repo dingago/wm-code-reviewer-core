@@ -15,7 +15,7 @@
 			Ensure that IDataCursor are always destroyed after use.
 			Failing to do so might result in resource leaks.
 		</description>
-		<priority>1</priority>
+		<priority>5</priority>
 		<example>
 <![CDATA[
 	IDataCursor cursor = pipeline.getCursor();
@@ -25,34 +25,13 @@
 		</example>
 	</rule>
 
-	<rule name="SingleTopLevelFolderRule" language="wm" since="6.17"
-		message="Ensure there is only one folder at top level"
-		class="hx.codeReviewer.lang.wm.rule.bestpractices.SingleTopLevelFolderRule">
+	<rule name="DisabledFlowElementRule" language="wm" since="6.17"
+		message="Flow service {0} has disabled flow step at {1}"
+		class="hx.codeReviewer.lang.wm.rule.bestpractices.DisabledFlowElementRule">
 		<description>
-			Ensure there is only one folder at top level.
+			Makes sure there is no disabled code in flow service.
 		</description>
-		<priority>3</priority>
-	</rule>
-
-
-	<rule name="UniqueTopLevelFolderRule" language="wm" since="6.17"
-		message="Ensure the top level folder {0} has the same name as package name"
-		class="hx.codeReviewer.lang.wm.rule.bestpractices.UniqueTopLevelFolderRule">
-		<description>
-			Ensure the name of top level folder is the same with
-			package name.
-		</description>
-		<priority>3</priority>
-	</rule>
-
-	<rule name="DuplicateSignatureField" language="wm" since="6.17"
-		message="Ensure that there is no duplicate field defined in signature of service {0}"
-		class="hx.codeReviewer.lang.wm.rule.bestpractices.DuplicateSignatureFieldRule">
-		<description>
-			Makes sure no duplicate field is defined in service
-			signature.
-		</description>
-		<priority>3</priority>
+		<priority>4</priority>
 	</rule>
 
 	<rule name="DuplicateDocumentFieldRule" language="wm" since="6.17"
@@ -62,7 +41,61 @@
 			Makes sure no duplicate field is defined in document
 			type.
 		</description>
-		<priority>3</priority>
+		<priority>2</priority>
+	</rule>
+
+	<rule name="DuplicateSignatureField" language="wm" since="6.17"
+		message="Ensure that there is no duplicate field defined in signature of service {0}"
+		class="hx.codeReviewer.lang.wm.rule.bestpractices.DuplicateSignatureFieldRule">
+		<description>
+			Makes sure no duplicate field is defined in service
+			signature.
+		</description>
+		<priority>2</priority>
+	</rule>
+
+	<rule name="EmptyFlowServiceRule" language="wm" since="6.17"
+		message="Flow service {0} is empty"
+		class="hx.codeReviewer.lang.wm.rule.bestpractices.EmptyFlowServiceRule">
+		<description>
+			Flow service can't be empty.
+		</description>
+		<priority>4</priority>
+	</rule>
+
+	<rule name="EmptyFolderRule" language="wm" since="6.17"
+		message="Folder {0} is empty" class="hx.codeReviewer.lang.wm.rule.bestpractices.EmptyFolderRule">
+		<description>
+			Folder can't be empty.
+		</description>
+		<priority>4</priority>
+	</rule>
+
+	<rule name="EmptyPackageRule" language="wm" since="6.17"
+		message="Package is empty" class="hx.codeReviewer.lang.wm.rule.bestpractices.EmptyPackageRule">
+		<description>
+			Package can't be empty.
+		</description>
+		<priority>4</priority>
+	</rule>
+
+	<rule name="RestoreDebugPipelineRule" language="wm" since="6.17"
+		message="Service {0} has debug pipeline property set to restore"
+		class="hx.codeReviewer.lang.wm.rule.bestpractices.RestoreDebugPipelineRule">
+		<description>
+			Service debug pipeline property should not be set to
+			restore.
+		</description>
+		<priority>1</priority>
+	</rule>
+
+	<rule name="SingleTopLevelFolderRule" language="wm" since="6.17"
+		message="Ensure there is only one folder at top level"
+		class="hx.codeReviewer.lang.wm.rule.bestpractices.SingleTopLevelFolderRule">
+		<description>
+			Ensure there is only one folder at top level.
+		</description>
+		<priority>5</priority>
 	</rule>
 
 	<rule name="UndefinedVariableRule" language="wm" since="6.17"
@@ -72,6 +105,16 @@
 			Makes sure no duplicate field is defined in document
 			type.
 		</description>
-		<priority>3</priority>
+		<priority>5</priority>
+	</rule>
+
+	<rule name="UniqueTopLevelFolderRule" language="wm" since="6.17"
+		message="Ensure the top level folder {0} has the same name as package name"
+		class="hx.codeReviewer.lang.wm.rule.bestpractices.UniqueTopLevelFolderRule">
+		<description>
+			Ensure the name of top level folder is the same with
+			package name.
+		</description>
+		<priority>5</priority>
 	</rule>
 </ruleset>
