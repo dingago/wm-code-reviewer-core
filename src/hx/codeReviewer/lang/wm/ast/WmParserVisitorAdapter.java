@@ -105,4 +105,9 @@ public class WmParserVisitorAdapter implements WmParserVisitor {
 		return visit((WmNode) node, data);
 	}
 
+	@Override
+	public Object visit(ASTSpecService node, Object data) {
+		return visit((WmNode) node, data);
+	}
+
 }

@@ -18,6 +18,7 @@ import hx.codeReviewer.lang.wm.ast.ASTFolder;
 import hx.codeReviewer.lang.wm.ast.ASTJavaService;
 import hx.codeReviewer.lang.wm.ast.ASTPackage;
 import hx.codeReviewer.lang.wm.ast.ASTParsedUnit;
+import hx.codeReviewer.lang.wm.ast.ASTSpecService;
 import hx.codeReviewer.lang.wm.ast.WmNode;
 import hx.codeReviewer.lang.wm.ast.WmParserVisitor;
 
@@ -145,7 +146,13 @@ public abstract class AbstractWmRule extends AbstractRule implements
 		return visit((WmNode) node, data);
 	}
 
+	@Override
 	public Object visit(ASTDocumentType node, Object data) {
+		return visit((WmNode) node, data);
+	}
+	
+	@Override
+	public Object visit(ASTSpecService node, Object data) {
 		return visit((WmNode) node, data);
 	}
 }

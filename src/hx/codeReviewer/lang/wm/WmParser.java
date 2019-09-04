@@ -18,6 +18,7 @@ import hx.codeReviewer.lang.wm.ast.ASTFolder;
 import hx.codeReviewer.lang.wm.ast.ASTJavaService;
 import hx.codeReviewer.lang.wm.ast.ASTPackage;
 import hx.codeReviewer.lang.wm.ast.ASTParsedUnit;
+import hx.codeReviewer.lang.wm.ast.ASTSpecService;
 import hx.codeReviewer.lang.wm.ast.AbstractFlowElement;
 import hx.codeReviewer.lang.wm.ast.AbstractNsNode;
 import hx.codeReviewer.lang.wm.ast.AbstractFlowElement.FlowType;
@@ -34,6 +35,7 @@ import java.util.Map;
 import com.wm.app.b2b.server.FlowSvcImpl;
 import com.wm.app.b2b.server.JavaService;
 import com.wm.app.b2b.server.Manifest;
+import com.wm.app.b2b.server.SpecService;
 import com.wm.app.b2b.server.ns.Interface;
 import com.wm.lang.flow.FlowBranch;
 import com.wm.lang.flow.FlowElement;
@@ -61,7 +63,7 @@ import net.sourceforge.pmd.lang.ast.ParseException;
 
 /**
  * @author Xiaowei Wang
- * @version 1.4
+ * @version 1.5
  *
  *          This class would parse local file and convert to AST nodes.
  */
@@ -219,6 +221,10 @@ public class WmParser extends AbstractParser {
 							NSRecord nsRecord = NSRecord.createRecord(null,
 									ndfValues.getValues("record"));
 							new ASTDocumentType(_package, parentNode, nsRecord);
+							break;
+						case SPEC:
+							SpecService specService = SpecService.create(null, NSName.create(nsName), ndfValues);
+							new ASTSpecService(_package, parentNode, specService);
 							break;
 						case UNKNOWN:
 						case NONE:

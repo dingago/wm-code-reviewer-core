@@ -1,12 +1,13 @@
 package hx.codeReviewer.lang.wm.ast;
 
 import com.wm.lang.ns.AuditSettings;
+import com.wm.lang.ns.NSName;
 import com.wm.lang.ns.NSService;
 import com.wm.lang.ns.NSSignature;
 
 /**
  * @author Xiaowei Wang
- * @version 1.2
+ * @version 1.3
  * 
  *          The abstract service node represents any webMethods node extends
  *          from class com.wm.lang.ns.NSService.
@@ -20,8 +21,12 @@ public abstract class AbstractNsService extends AbstractNsNode {
 	}
 
 	public String getSpecNsName() {
-		return ((NSService) ((NSService) nsNode)).getSpecification()
-				.getFullName();
+		NSName specNsName = ((NSService)nsNode).getSpecification();
+		if (specNsName == null){
+			return null;
+		}else{
+			return specNsName.getFullName();
+		}
 	}
 
 	public boolean isValidateInputs() {

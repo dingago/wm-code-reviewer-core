@@ -14,4 +14,6 @@
 	<rule ref="category/wm/errorprone.xml/RequiredPackagesRule" />
 	<rule ref="category/wm/security.xml/HardcodingPasswordRule" />
 	<rule ref="category/wm/errorprone.xml/MissingReferencesInFlowRule" />
+	<rule
+		ref="category/wm/errorprone.xml/MissingReferencesInServiceSignatureRule" />
 </ruleset>
