@@ -63,7 +63,7 @@ import net.sourceforge.pmd.lang.ast.ParseException;
 
 /**
  * @author Xiaowei Wang
- * @version 1.5
+ * @version 1.6
  *
  *          This class would parse local file and convert to AST nodes.
  */
@@ -223,8 +223,10 @@ public class WmParser extends AbstractParser {
 							new ASTDocumentType(_package, parentNode, nsRecord);
 							break;
 						case SPEC:
-							SpecService specService = SpecService.create(null, NSName.create(nsName), ndfValues);
-							new ASTSpecService(_package, parentNode, specService);
+							SpecService specService = SpecService.create(null,
+									NSName.create(nsName), ndfValues);
+							new ASTSpecService(_package, parentNode,
+									specService);
 							break;
 						case UNKNOWN:
 						case NONE:
@@ -299,7 +301,7 @@ public class WmParser extends AbstractParser {
 
 	/**
 	 * @author Xiaowei Wang
-	 * @since 1.2
+	 * @since 1.3
 	 * @param root
 	 *            The ASTFlowRoot object represents the root element of flow
 	 *            service.
@@ -313,49 +315,75 @@ public class WmParser extends AbstractParser {
 			AbstractFlowElement parentNode) {
 		FlowElement parentElement = parentNode.getFlowElement();
 
-		for (FlowElement childElement : parentElement.getNodes()) {
-			FlowType childFlowType = AbstractFlowElement.getType(childElement
-					.getFlowType());
-			if (childFlowType == FlowType.SEQUENCE) {
-				parseFlowElements(root, new ASTFlowSequence(root.getPackage(),
-						root, parentNode, (FlowSequence) childElement));
-			} else if (childFlowType == FlowType.BRANCH) {
-				parseFlowElements(root, new ASTFlowBranch(root.getPackage(),
-						root, parentNode, (FlowBranch) childElement));
-			} else if (childFlowType == FlowType.REPEAT) {
-				parseFlowElements(root, new ASTFlowRepeat(root.getPackage(),
-						root, parentNode, (FlowRetry) childElement));
-			} else if (childFlowType == FlowType.LOOP) {
-				parseFlowElements(root, new ASTFlowLoop(root.getPackage(),
-						root, parentNode, (FlowLoop) childElement));
-			} else if (childFlowType == FlowType.INVOKE) {
-				parseFlowElements(root, new ASTFlowInvoke(root.getPackage(),
-						root, parentNode, (FlowInvoke) childElement));
-			} else if (childFlowType == FlowType.EXIT) {
-				new ASTFlowExit(root.getPackage(), root, parentNode,
-						(FlowExit) childElement);
-			} else if (childFlowType == FlowType.MAP) {
-				ASTFlowMap astFlowMap = new ASTFlowMap(root.getPackage(), root,
-						parentNode, (FlowMap) childElement);
-				
-				parseFlowElements(root, astFlowMap);
-			} else if (childFlowType == FlowType.TRANSFORMER) {
-				parseFlowElements(root,
-						new ASTFlowTransformer(root.getPackage(), root,
-								(ASTFlowMap) parentNode,
-								(FlowMapInvoke) childElement));
-			} else if (childFlowType == FlowType.LINK) {
-				new ASTFlowLink(root.getPackage(), root,
-						(ASTFlowMap) parentNode, (FlowMapCopy) childElement);
-			} else if (childFlowType == FlowType.SET) {
-				new ASTFlowSet(root.getPackage(), root,
-						(ASTFlowMap) parentNode, (FlowMapSet) childElement);
-			} else if (childFlowType == FlowType.DROP) {
-				new ASTFlowDrop(root.getPackage(), root,
-						(ASTFlowMap) parentNode, (FlowMapDelete) childElement);
-			} else {
-				throw new RuntimeException("Found unsupported flow element "
-						+ childFlowType.toString());
+		if (parentElement instanceof FlowInvoke) {
+			/**
+			 * FlowInvoke doesn't have child elements but input/output maps.
+			 */
+			FlowMap inputMap = parentElement.getInputMap();
+			if (inputMap != null) {
+				ASTFlowMap astFlowInputMap = new ASTFlowMap(root.getPackage(),
+						root, parentNode, inputMap);
+
+				parseFlowElements(root, astFlowInputMap);
+			}
+			FlowMap outputMap = parentElement.getOutputMap();
+			if (outputMap != null) {
+				ASTFlowMap astFlowOutputMap = new ASTFlowMap(root.getPackage(),
+						root, parentNode, outputMap);
+
+				parseFlowElements(root, astFlowOutputMap);
+			}
+		} else {
+			for (FlowElement childElement : parentElement.getNodes()) {
+				FlowType childFlowType = AbstractFlowElement
+						.getType(childElement.getFlowType());
+				if (childFlowType == FlowType.SEQUENCE) {
+					parseFlowElements(root,
+							new ASTFlowSequence(root.getPackage(), root,
+									parentNode, (FlowSequence) childElement));
+				} else if (childFlowType == FlowType.BRANCH) {
+					parseFlowElements(root, new ASTFlowBranch(
+							root.getPackage(), root, parentNode,
+							(FlowBranch) childElement));
+				} else if (childFlowType == FlowType.REPEAT) {
+					parseFlowElements(root, new ASTFlowRepeat(
+							root.getPackage(), root, parentNode,
+							(FlowRetry) childElement));
+				} else if (childFlowType == FlowType.LOOP) {
+					parseFlowElements(root, new ASTFlowLoop(root.getPackage(),
+							root, parentNode, (FlowLoop) childElement));
+				} else if (childFlowType == FlowType.INVOKE) {
+					parseFlowElements(root, new ASTFlowInvoke(
+							root.getPackage(), root, parentNode,
+							(FlowInvoke) childElement));
+				} else if (childFlowType == FlowType.EXIT) {
+					new ASTFlowExit(root.getPackage(), root, parentNode,
+							(FlowExit) childElement);
+				} else if (childFlowType == FlowType.MAP) {
+					ASTFlowMap astFlowMap = new ASTFlowMap(root.getPackage(),
+							root, parentNode, (FlowMap) childElement);
+
+					parseFlowElements(root, astFlowMap);
+				} else if (childFlowType == FlowType.TRANSFORMER) {
+					parseFlowElements(root,
+							new ASTFlowTransformer(root.getPackage(), root,
+									(ASTFlowMap) parentNode,
+									(FlowMapInvoke) childElement));
+				} else if (childFlowType == FlowType.LINK) {
+					new ASTFlowLink(root.getPackage(), root,
+							(ASTFlowMap) parentNode, (FlowMapCopy) childElement);
+				} else if (childFlowType == FlowType.SET) {
+					new ASTFlowSet(root.getPackage(), root,
+							(ASTFlowMap) parentNode, (FlowMapSet) childElement);
+				} else if (childFlowType == FlowType.DROP) {
+					new ASTFlowDrop(root.getPackage(), root,
+							(ASTFlowMap) parentNode,
+							(FlowMapDelete) childElement);
+				} else {
+					throw new RuntimeException(
+							"Found unsupported flow element "
+									+ childFlowType.toString());
+				}
 			}
 		}
 

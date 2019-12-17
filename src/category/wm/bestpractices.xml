@@ -102,8 +102,7 @@
 		message="Variable {0} mapped at {1} is not defined{2}in Flow Service {3}"
 		class="hx.codeReviewer.lang.wm.rule.bestpractices.UndefinedVariableRule">
 		<description>
-			Makes sure no duplicate field is defined in document
-			type.
+			Makes sure no field is mapped before it's defined.
 		</description>
 		<priority>5</priority>
 	</rule>

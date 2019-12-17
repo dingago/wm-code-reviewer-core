@@ -5,7 +5,7 @@ import com.wm.util.Values;
 
 /**
  * @author Xiaowei Wang
- * @version 1.6
+ * @version 1.7
  * 
  *          The abstract AST node represents any webMethods node extends from
  *          class com.wm.lang.ns.NSNode.
@@ -99,7 +99,7 @@ public abstract class AbstractNsNode extends AbstractWmNode {
 
 	/**
 	 * @author Xiaowei Wang
-	 * @since 1.4
+	 * @since 1.5
 	 * @param nodeValues
 	 *            The Values of node definition.
 	 * @return The node type retrieved from node definition.
@@ -116,8 +116,7 @@ public abstract class AbstractNsNode extends AbstractWmNode {
 			if (serviceType != null) {
 				if (serviceType.equals("flow")) {
 					return NodeType.FLOW_SERVICE;
-				} else if (serviceType.equals("java")
-						&& serviceSubType.equals("default")) {
+				} else if (serviceType.equals("java")) {
 					return NodeType.JAVA_SERVICE;
 				} else if (serviceType.equals("AdapterService")) {
 					return NodeType.ADAPTER_SERVICE;
